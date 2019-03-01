@@ -26,5 +26,30 @@ namespace tekenprogramma
         {
             this.InitializeComponent();
         }
+
+        
+        public void MyMouseDoubleClickEvent(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            // Get mouse position
+            Point p = System.Windows.Input.Mouse.GetPosition(front_canvas);
+
+            // Initialize a new Rectangle
+            Rectangle r = new Rectangle();
+
+            // Set up rectangle's size
+            r.Width = 5;
+            r.Height = 5;
+
+            // Set up the Background color
+            r.Fill = Brushes.Black;
+
+            // Set up the position in the window, at mouse coordonate
+            Canvas.SetTop(r, p.Y);
+            Canvas.SetLeft(r, p.X);
+
+            // Add rectangle to the Canvas
+            ink_canvas.Children.Add(r);
+        }
+        
     }
 }
