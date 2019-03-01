@@ -8,6 +8,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Canvas Height="200" Width="200" Name="front_canvas" Grid.Row="1" Grid.Column="0">
+        <Rectangle Fill="#FFF4F4F5" Height="536" Canvas.Left="-659" Stroke="Black" Canvas.Top="-1245" Width="1536"/>
+        <Button Content="Button" Canvas.Left="-405" Canvas.Top="-1045" Width="301" Height="166"/>
+        <Button Content="Button" Canvas.Left="140" Canvas.Top="-1045" Width="359" Height="166"/>
     </Canvas>
     <!--<Grid>
     </Grid>-->
