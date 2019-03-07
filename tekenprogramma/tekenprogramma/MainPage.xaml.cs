@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Windows.Input;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -27,11 +28,51 @@ namespace tekenprogramma
             this.InitializeComponent();
         }
 
-        
-        public void MyMouseDoubleClickEvent(object sender, System.Windows.Input.MouseEventArgs e)
+        /*
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var row = sender as DataGridRow;
+            var dataElement = row?.DataContext as MyItem;
+            if (dataElement?.CanDoubleClick != true)
+                return;
+
+            // process double-click here
+            return;
+        }
+        */
+
+            /*
+        void image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+            {
+                Close();
+            }
+        }
+        */
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /*
+        private void InkCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        */
+
+        /*
+        public void MyMouseDoubleClickEvent(object sender, Windows.UI.Xaml.Input.Mouse e)
         {
             // Get mouse position
-            Point p = System.Windows.Input.Mouse.GetPosition(front_canvas);
+            Point p = Mouse.GetPosition(front_canvas);
 
             // Initialize a new Rectangle
             Rectangle r = new Rectangle();
@@ -50,6 +91,7 @@ namespace tekenprogramma
             // Add rectangle to the Canvas
             ink_canvas.Children.Add(r);
         }
-        
+        */
+
     }
 }
