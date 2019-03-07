@@ -25,14 +25,15 @@ namespace tekenprogramma
         public MainPage()
         {
             this.InitializeComponent();
+            Point x = System.Windows.Input.Mouse.GetPosition(front_canvas);
         }
 
         
-        public void MyMouseDoubleClickEvent(object sender, System.Windows.Input.MouseEventArgs e)
+        public void MyMouseDoubleClickEvent(object sender, PointerRoutedEventArgs e)
         {
             // Get mouse position
-            Point p = System.Windows.Input.Mouse.GetPosition(front_canvas);
-
+            double x = e.GetCurrentPoint(front_canvas).Position.X;
+            double y = e.GetCurrentPoint(front_canvas).Position.Y;
             // Initialize a new Rectangle
             Rectangle r = new Rectangle();
 
