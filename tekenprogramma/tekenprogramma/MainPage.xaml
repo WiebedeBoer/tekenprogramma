@@ -13,7 +13,13 @@
        <!-- <Rectangle Fill="#FFF4F4F5" Height="636" Canvas.Left="-659" Stroke="Black" Canvas.Top="-517" Width="1536"/>-->
         <Button Content="Elipse" Canvas.Left="-437" Canvas.Top="-139" Width="301" Height="166" Click="Button_Click"/>
         <Button Content="Rectangle" Canvas.Left="200" Canvas.Top="-139" Width="359" Height="166" Click="Button_Click_1"/>
-        <InkCanvas Height="576" Name="ink_canvas" Canvas.Left="-659" Canvas.Top="124" Width="1519" />
+        <!--<InkCanvas Height="576" Name="ink_canvas" x:Name="MC" MouseLeftButtonDown="MC_MouseLeftButtonDown" MouseRightButtonDown="MC_MouseRightButtonDown" MouseMove="MC_MouseMove" Canvas.Left="-659" Canvas.Top="124" Width="1519" />-->
+        <!--<Canvas  Name="paintSurface" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </Canvas.Background>
+        </Canvas>-->
+        <InkCanvas Height="576" Name="ink_canvas" Canvas.Left="-659" Canvas.Top="124" Width="1519" PointerPressed="Ink_canvas_PointerPressed"/>
         <!--<Canvas Name="TestCanvas" />-->
         <!--Click="InkCanvas_MouseDown"-->
     </Canvas>
