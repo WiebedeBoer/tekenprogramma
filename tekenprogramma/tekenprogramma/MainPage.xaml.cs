@@ -25,7 +25,6 @@ namespace tekenprogramma
         public MainPage()
         {
             this.InitializeComponent();
-            Point x = System.Windows.Input.Mouse.GetPosition(front_canvas);
         }
 
         
@@ -35,22 +34,26 @@ namespace tekenprogramma
             double x = e.GetCurrentPoint(front_canvas).Position.X;
             double y = e.GetCurrentPoint(front_canvas).Position.Y;
             // Initialize a new Rectangle
-            Rectangle r = new Rectangle();
+            //Rectangle r = new Rectangle();
 
             // Set up rectangle's size
-            r.Width = 5;
-            r.Height = 5;
+            //r.Width = 5;
+            //r.Height = 5;
 
             // Set up the Background color
-            r.Fill = Brushes.Black;
+            //r.Fill = Brushes.Black;
 
             // Set up the position in the window, at mouse coordonate
-            Canvas.SetTop(r, p.Y);
-            Canvas.SetLeft(r, p.X);
+            //Canvas.SetTop(r, p.Y);
+            //Canvas.SetLeft(r, p.X);
 
             // Add rectangle to the Canvas
-            ink_canvas.Children.Add(r);
+            //ink_canvas.Children.Add(r);
         }
-        
+
+        private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
     }
 }
