@@ -14,12 +14,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using System.Windows;
-//using System.Windows.Shapes;
-//using System.Windows.Controls;
-//using System.Windows.Media;
-//using System.Windows.Markup;
 using System.Windows.Input;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Markup;
+
 
 //using System.Drawing;
 //using System.Windows.Media;
@@ -43,9 +41,11 @@ namespace tekenprogramma
 
             Nullable<Point> dragStart = null;
 
+            SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
+
             var shapes = new UIElement[] {
-                new Ellipse() { Fill = Brushes.DarkKhaki, Width = 100, Height = 100 },
-                new Rectangle() { Fill = Brushes.LawnGreen, Width = 200, Height = 100 },
+                new Ellipse() { Fill = myBrush, Width = 100, Height = 100 },
+                new Rectangle() { Fill = myBrush, Width = 200, Height = 100 },
             };
 
             MouseButtonEventHandler mouseDown = (sender, args) => {
@@ -69,6 +69,7 @@ namespace tekenprogramma
             };
 
             Action<UIElement> enableDrag = (element) => {
+            //paintSurface enableDrag = (element) => {
                 element.MouseDown += mouseDown;
                 element.MouseMove += mouseMove;
                 element.MouseUp += mouseUp;
