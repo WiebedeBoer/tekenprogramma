@@ -11,8 +11,12 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using System.Windows.Input;
+using System.Windows;
+//using System.Drawing;
+//using System.Windows.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -70,8 +74,13 @@ namespace tekenprogramma
 
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            double x = e.GetCurrentPoint(ink_canvas).Position.X;
-            double y = e.GetCurrentPoint(ink_canvas).Position.Y;
+            double x = e.GetCurrentPoint(paintSurface).Position.X;
+            double y = e.GetCurrentPoint(paintSurface).Position.Y;
+        }
+
+        private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
         }
 
         /*
