@@ -13,8 +13,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using System.Windows.Input;
 using System.Windows;
+//using System.Windows.Shapes;
+//using System.Windows.Controls;
+//using System.Windows.Media;
+//using System.Windows.Markup;
+using System.Windows.Input;
+using Windows.UI.Xaml.Shapes;
+
 //using System.Drawing;
 //using System.Windows.Media;
 
@@ -27,50 +33,86 @@ namespace tekenprogramma
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        string type = "Rectangle";
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            var c = new Canvas();
+
+            Nullable<Point> dragStart = null;
+
+            var shapes = new UIElement[] {
+                new Ellipse() { Fill = Brushes.DarkKhaki, Width = 100, Height = 100 },
+                new Rectangle() { Fill = Brushes.LawnGreen, Width = 200, Height = 100 },
+            };
+
+            MouseButtonEventHandler mouseDown = (sender, args) => {
+                var element = (UIElement)sender;
+                dragStart = args.GetPosition(element);
+                element.CaptureMouse();
+            };
+            MouseButtonEventHandler mouseUp = (sender, args) => {
+                var element = (UIElement)sender;
+                dragStart = null;
+                element.ReleaseMouseCapture();
+            };
+            MouseEventHandler mouseMove = (sender, args) => {
+                if (dragStart != null && args.LeftButton == MouseButtonState.Pressed)
+                {
+                    var element = (UIElement)sender;
+                    var p2 = args.GetPosition(c);
+                    Canvas.SetLeft(element, p2.X - dragStart.Value.X);
+                    Canvas.SetTop(element, p2.Y - dragStart.Value.Y);
+                }
+            };
+
+            Action<UIElement> enableDrag = (element) => {
+                element.MouseDown += mouseDown;
+                element.MouseMove += mouseMove;
+                element.MouseUp += mouseUp;
+            };
+
+            foreach (var shape in shapes)
+            {
+                enableDrag(shape);
+                c.Children.Add(shape);
+            }
+
         }
 
         /*
-        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var row = sender as DataGridRow;
-            var dataElement = row?.DataContext as MyItem;
-            if (dataElement?.CanDoubleClick != true)
-                return;
-
-            // process double-click here
-            return;
-        }
+        var w = new Window();
+        w.Width = 600;
+        w.Height = 400;
+        var c = new Canvas();      
         */
 
-            /*
-        void image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
-            {
-                Close();
-            }
-        }
+        /*
+        w.Content = c;
+        w.ShowDialog();
         */
 
+        //ellipse
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            FrameworkElement button = e.OriginalSource as FrameworkElement;
+            type = button.Name;
         }
 
+        //rectangle
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            FrameworkElement button = e.OriginalSource as FrameworkElement;
+            type = button.Name;
         }
 
-        /*
-        private void MC_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //resize
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
         }
-        */
 
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
@@ -83,56 +125,79 @@ namespace tekenprogramma
             front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
         }
 
-        /*
-    private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    /*
+private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+{
+    var row = sender as DataGridRow;
+    var dataElement = row?.DataContext as MyItem;
+    if (dataElement?.CanDoubleClick != true)
+        return;
+
+    // process double-click here
+    return;
+}
+*/
+
+    /*
+void image_MouseDown(object sender, MouseButtonEventArgs e)
+{
+    if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
     {
-        if (e.ButtonState == MouseButtonState.Pressed)
-            currentPoint = e.GetPosition(this);
+        Close();
     }
+}
+*/
 
-    private void Canvas_MouseMove_1(object sender, System.Windows.Input.MouseEventArgs e)
+    /*
+private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+{
+    if (e.ButtonState == MouseButtonState.Pressed)
+        currentPoint = e.GetPosition(this);
+}
+
+private void Canvas_MouseMove_1(object sender, System.Windows.Input.MouseEventArgs e)
+{
+    if (e.LeftButton == MouseButtonState.Pressed)
     {
-        if (e.LeftButton == MouseButtonState.Pressed)
-        {
-            Line line = new Line();
+        Line line = new Line();
 
-            line.Stroke = SystemColors.WindowFrameBrush;
-            line.X1 = currentPoint.X;
-            line.Y1 = currentPoint.Y;
-            line.X2 = e.GetPosition(this).X;
-            line.Y2 = e.GetPosition(this).Y;
+        line.Stroke = SystemColors.WindowFrameBrush;
+        line.X1 = currentPoint.X;
+        line.Y1 = currentPoint.Y;
+        line.X2 = e.GetPosition(this).X;
+        line.Y2 = e.GetPosition(this).Y;
 
-            currentPoint = e.GetPosition(this);
+        currentPoint = e.GetPosition(this);
 
-            paintSurface.Children.Add(line);
-        }
+        paintSurface.Children.Add(line);
+    }
+}
+*/
+
+    /*
+    public void MyMouseDoubleClickEvent(object sender, Windows.UI.Xaml.Input.Mouse e)
+    {
+        // Get mouse position
+        Point p = Mouse.GetPosition(front_canvas);
+
+        // Initialize a new Rectangle
+        Rectangle r = new Rectangle();
+
+        // Set up rectangle's size
+        r.Width = 5;
+        r.Height = 5;
+
+        // Set up the Background color
+        r.Fill = Brushes.Black;
+
+        // Set up the position in the window, at mouse coordonate
+        Canvas.SetTop(r, p.Y);
+        Canvas.SetLeft(r, p.X);
+
+        // Add rectangle to the Canvas
+        ink_canvas.Children.Add(r);
     }
     */
 
-        /*
-        public void MyMouseDoubleClickEvent(object sender, Windows.UI.Xaml.Input.Mouse e)
-        {
-            // Get mouse position
-            Point p = Mouse.GetPosition(front_canvas);
-
-            // Initialize a new Rectangle
-            Rectangle r = new Rectangle();
-
-            // Set up rectangle's size
-            r.Width = 5;
-            r.Height = 5;
-
-            // Set up the Background color
-            r.Fill = Brushes.Black;
-
-            // Set up the position in the window, at mouse coordonate
-            Canvas.SetTop(r, p.Y);
-            Canvas.SetLeft(r, p.X);
-
-            // Add rectangle to the Canvas
-            ink_canvas.Children.Add(r);
-        }
-        */
-
-    }
+}
 }
