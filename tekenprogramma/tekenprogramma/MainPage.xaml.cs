@@ -22,17 +22,24 @@ namespace tekenprogramma
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        int height = 1;
+        int width = 1;
+        string type = "Rectangle";
+
         public MainPage()
         {
             this.InitializeComponent();
         }
 
         
-        public void MyMouseDoubleClickEvent(object sender, PointerRoutedEventArgs e)
+        public void MyMouseDoubleClickEvent(object sender, RoutedEventArgs e)
         {
             // Get mouse position
-            double x = e.GetCurrentPoint(front_canvas).Position.X;
-            double y = e.GetCurrentPoint(front_canvas).Position.Y;
+            FrameworkElement button = e.OriginalSource as FrameworkElement;
+            type = button.Name;
+            Rectangle.Content = type;
+            //double x = e.GetCurrentPoint(front_canvas).Position.X;
+            //double y = e.GetCurrentPoint(front_canvas).Position.Y;
             // Initialize a new Rectangle
             //Rectangle r = new Rectangle();
 
