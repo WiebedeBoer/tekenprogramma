@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -22,9 +23,12 @@ namespace tekenprogramma
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        int height = 1;
-        int width = 1;
+        double height = 1;
+        double width = 1;
         string type = "Rectangle";
+        double cpx;
+        double cpy;
+        bool firstcp = true;
 
         public MainPage()
         {
@@ -60,7 +64,44 @@ namespace tekenprogramma
 
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-
+            if (firstcp)
+            {
+                cpx = e.GetCurrentPoint(front_canvas).Position.X;
+                cpy = e.GetCurrentPoint(front_canvas).Position.Y;
+                Rectangle.Content = "Klik 1";
+            }
+            else
+            {
+                height = Math.Abs(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
+                width = Math.Abs(cpx - e.GetCurrentPoint(front_canvas).Position.X);
+                if(type == "Rectangle")
+                {
+                    Rectangle tmp = new Rectangle();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+                else
+                {
+                    Ellipse tmp = new Ellipse();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+            }
+            firstcp = !firstcp;
         }
     }
 }
