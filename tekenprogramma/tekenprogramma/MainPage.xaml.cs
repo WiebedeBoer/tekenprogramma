@@ -29,7 +29,7 @@ namespace tekenprogramma
         double cpx;
         double cpy;
         bool firstcp = true;
-        int elements;
+        int elements = 0;
 
         public MainPage()
         {
@@ -85,6 +85,7 @@ namespace tekenprogramma
                     brush.Color = Windows.UI.Colors.Blue;
                     tmp.Fill = brush;
                     tmp.Stroke = brush;
+                    tmp.Name = elements.ToString();
                     Canvas.SetLeft(tmp, cpx);
                     Canvas.SetTop(tmp, cpy);
                     tmp.PointerPressed += Ink_canvas_PointerPressed;
@@ -102,12 +103,15 @@ namespace tekenprogramma
                     tmp.Fill = brush;
                     tmp.Stroke = brush;
                     tmp.Name = elements.ToString();
+                    ++elements;
                     Canvas.SetLeft(tmp, cpx);
                     Canvas.SetTop(tmp, cpy);
                     tmp.PointerPressed += Ink_canvas_PointerPressed;
                     front_canvas.Children.Add(tmp);
                     Rectangle.Content = "Klik 2";
                 }
+                FrameworkElement tmptwee = e.OriginalSource as FrameworkElement;
+                Rectangle.Content = tmptwee.Name;
             }
             firstcp = !firstcp;
         }
