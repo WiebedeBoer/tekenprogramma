@@ -53,23 +53,31 @@ namespace tekenprogramma
             //MouseButtonEventHandler mouseDown = (sender, args) => {
             PointerEventHandler mouseDown = (sender, args) => {
                 var element = (UIElement)sender;
-                dragStart = args.GetPosition(element);
-                element.CaptureMouse();
+                //dragStart = args.GetCurrentPoint(element);
+                //dragStart = args.GetPosition(element);
+                dcpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
+                dcpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
+                //element.CaptureMouse();
+                element.CapturePointer();
             };
             //MouseButtonEventHandler mouseUp = (sender, args) => {
-            MouseButtonEventHandler mouseUp = (sender, args) => {
+            PointerEventHandler mouseUp = (sender, args) => {
                 var element = (UIElement)sender;
                 dragStart = null;
-                element.ReleaseMouseCapture();
+                element.ReleasePointerCapture(args.Pointer);
             };
             //MouseEventHandler mouseMove = (sender, args) => {
-            MouseEventHandler mouseMove = (sender, args) => {
-                if (dragStart != null && args.LeftButton == MouseButtonState.Pressed)
+            PointerEventHandler mouseMove = (sender, args) => {
+                //if (dragStart != null && args.LeftButton == MouseButtonState.Pressed)
+                if (dragStart != null && args.Pointer == PointerPressed.Pressed)
                 {
                     var element = (UIElement)sender;
-                    var p2 = args.GetPosition(c);
+                    //var p2 = args.GetCurrentPoint(c);
+                    /*
                     Canvas.SetLeft(element, p2.X - dragStart.Value.X);
-                    Canvas.SetTop(element, p2.Y - dragStart.Value.Y);
+                    Canvas.SetTop(element, p2.Y - dragStart.Value.Y);*/
+                    cpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
+                    cpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
                 }
             };
 
@@ -78,7 +86,7 @@ namespace tekenprogramma
                 //Action<paintsurface> enableDrag = (element) => {
                 element.PointerPressed += mouseDown;
                 element.PointerMoved += mouseMove;
-                element.MouseUp += mouseUp;
+                element.PointerReleased += mouseUp;
             };
 
             var shapes = new UIElement[] {
@@ -155,7 +163,9 @@ namespace tekenprogramma
         int cpy;
         bool firstcp = true;
         int elements = 0;
-
+        int dcpx;
+        int dcpy;
+        /*
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (firstcp)
@@ -208,6 +218,7 @@ namespace tekenprogramma
             }
             firstcp = !firstcp;
         }
+        */
     
 
 
