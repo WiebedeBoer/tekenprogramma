@@ -49,6 +49,18 @@ namespace tekenprogramma
 
             PointerPoint dragStart = null;
 
+            //global vars
+            List<object> shapeslist;
+            string mainAction;
+            //int height = 1;
+            //int width = 1;
+            int cpx;
+            int cpy;
+            //bool firstcp = true;
+            //int elements = 0;
+            int dcpx;
+            int dcpy;
+
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
 
             //MouseButtonEventHandler mouseDown = (sender, args) => {
@@ -127,6 +139,12 @@ namespace tekenprogramma
             type = button.Name;
         }
 
+        //group
+        private void Group_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //undo
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
@@ -145,8 +163,20 @@ namespace tekenprogramma
 
         }
 
+        //load
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //resize
         private void Resize_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //move
+        private void Move_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -158,14 +188,7 @@ namespace tekenprogramma
             front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
         }
 
-        int height = 1;
-        int width = 1;        
-        int cpx;
-        int cpy;
-        bool firstcp = true;
-        int elements = 0;
-        int dcpx;
-        int dcpy;
+
         /*
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
