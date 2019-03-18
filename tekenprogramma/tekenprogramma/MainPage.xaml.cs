@@ -18,6 +18,7 @@ using System.Windows.Input;
 //using System.Windows.Forms;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Markup;
+using Windows.UI.Input;
 //using System.Windows.Threading;
 
 
@@ -46,19 +47,19 @@ namespace tekenprogramma
             //w.Height = 400;
             var c = new Canvas();
 
-            Nullable<Point> dragStart = null;
+            PointerPoint dragStart = null;
 
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
 
             //MouseButtonEventHandler mouseDown = (sender, args) => {
             PointerEventHandler mouseDown = (sender, args) => {
                 var element = (UIElement)sender;
-                //dragStart = args.GetCurrentPoint(element);
+                dragStart = args.GetCurrentPoint(element);
                 //dragStart = args.GetPosition(element);
                 dcpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
                 dcpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
                 //element.CaptureMouse();
-                element.CapturePointer();
+                element.CapturePointer(args.Pointer);
             };
             //MouseButtonEventHandler mouseUp = (sender, args) => {
             PointerEventHandler mouseUp = (sender, args) => {
@@ -69,7 +70,7 @@ namespace tekenprogramma
             //MouseEventHandler mouseMove = (sender, args) => {
             PointerEventHandler mouseMove = (sender, args) => {
                 //if (dragStart != null && args.LeftButton == MouseButtonState.Pressed)
-                if (dragStart != null && args.Pointer == PointerPressed.Pressed)
+                if (dragStart != null && args.GetCurrentPoint((UIElement)sender).Properties.IsLeftButtonPressed)
                 {
                     var element = (UIElement)sender;
                     //var p2 = args.GetCurrentPoint(c);

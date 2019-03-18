@@ -17,6 +17,10 @@ namespace tekenprogramma
     class CreateRectangle
     {
         private Shape rectangle;
+        private int leftcoord;
+        private int topcoord;
+        private int rightcoord;
+        private int bottomcoord;
 
         public CreateRectangle(Shape rectangle)
         {
