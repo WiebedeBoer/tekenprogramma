@@ -17,10 +17,11 @@ namespace tekenprogramma
     class CreateRectangle
     {
         private Shape rectangle;
-        private int leftcoord;
-        private int topcoord;
-        private int rightcoord;
-        private int bottomcoord;
+        private int leftCoord;
+        private int topCoord;
+        private int rightCoord;
+        private int bottomCoord;
+        private string actionType;
 
         public CreateRectangle(Shape rectangle)
         {
@@ -31,11 +32,21 @@ namespace tekenprogramma
         {
             rectangle.Create();
         }
+
+        public void OnPointerPressed()
+        {
+            this.actionType = "selected";
+        }
     }
 
     class CreateElipse
     {
         private Shape elipse;
+        private int leftCoord;
+        private int topCoord;
+        private int rightCoord;
+        private int bottomCoord;
+        private string actionType;
 
         public CreateElipse(Shape elipse)
         {
@@ -45,6 +56,11 @@ namespace tekenprogramma
         public void execute()
         {
             elipse.Create();
+        }
+
+        public void OnPointerPressed()
+        {
+            this.actionType = "selected";
         }
     }
 
