@@ -5,14 +5,66 @@
     xmlns:local="using:tekenprogramma"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    mc:Ignorable="d" 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1248" Width="1564">
+    <Grid HorizontalAlignment="Left" Height="1348" VerticalAlignment="Top" Width="1564">
+        <Canvas Height="300" Width="200" Name="front_canvas" Grid.Row="1"  Grid.Column="0" PointerMoved="Front_canvas_PointerMoved" Background="#FF1139C3">
+            <Button Content="Undo" Canvas.Left="-600" Canvas.Top="-539" Width="301" Height="166" Click="Undo_Click" Name="Undo"/>
+            <Button Content="Redo" Canvas.Left="-200" Canvas.Top="-539" Width="301" Height="166" Click="Redo_Click" Name="Redo"/>
+            <Button Content="Save" Canvas.Left="-600" Canvas.Top="-339" Width="301" Height="166" Click="Save_Click" Name="Save"/>
+            <Button Content="Load" Canvas.Left="-200" Canvas.Top="-339" Width="301" Height="166" Click="Load_Click" Name="Load"/>
+            <Button Content="Resize" Canvas.Left="200" Canvas.Top="-339" Width="301" Height="166" Click="Resize_Click" Name="Resize"/>
+            <Button Content="Move" Canvas.Left="550" Canvas.Top="-339" Width="301" Height="166" Click="Move_Click" Name="Move"/>
+            <Button Content="Elipse" Canvas.Left="-600" Canvas.Top="-139" Width="301" Height="166" Click="Button_Click" Name="Elipse"/>
+            <Button Content="Rectangle" Canvas.Left="-200" Canvas.Top="-139" Width="301" Height="166" Click="Button_Click_1" Name="Rectangle"/>
+            <Button Content="Ornament" Canvas.Left="200" Canvas.Top="-139" Width="301" Height="166" Click="Ornament_Click" Name="Ornament"/>
+            <Button Content="Group" Canvas.Left="550" Canvas.Top="-139" Width="301" Height="166" Click="Group_Click" Name="Group"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Left" AllowDrop="True" Height="100" Margin="432,1000,0,0" VerticalAlignment="Top" Width="100" Name="paintSurface" Opacity="0" PointerPressed="Ink_canvas_PointerPressed">
+            <!--<Label Content="{Binding EntityName}" MouseDown="{Binding DoSomething}"/>-->
+            <!--<Label Content="{Binding EntityName}" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown" >
+                        <i:InvokeCommandAction Command="{Binding DoSomething}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Label>-->
+            <Canvas.Background>
+                <SolidColorBrush Color="Red" Opacity="0"/>
+            </Canvas.Background>
+        </Canvas>
+        <TextBox HorizontalAlignment="Left" Margin="1036,58,0,0" TextWrapping="Wrap" Text="Width" Name="Width" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="1034,137,0,0" TextWrapping="Wrap" Text="Height" Name="Height" VerticalAlignment="Top"/>
 
-    <Canvas Height="200" Width="200" Name="front_canvas" Grid.Row="1" Grid.Column="0">
-        <Rectangle Fill="#FFF4F4F5" Height="636" Canvas.Left="-659" Stroke="Black" Canvas.Top="-517" Width="1536"/>
-        <Button Content="Elipse" Canvas.Left="-437" Canvas.Top="-139" Width="301" Height="166"/>
-        <Button Content="Rectangle" Canvas.Left="200" Canvas.Top="-139" Width="359" Height="166"/>
-        <InkCanvas Height="576" Name="ink_canvas" Canvas.Left="-659" Canvas.Top="124" Width="1519"/>
-    </Canvas>
+    </Grid>
+
+
+
+
+    <!--MouseDoubleClick="MyMouseDoubleClickEvent"-->
+
+    <!--<Canvas Height="200" Width="200" Name="front_canvas" Grid.Row="1"  Grid.Column="0" PointerMoved="Front_canvas_PointerMoved" Background="#FF1139C3">-->
+    <!-- <Rectangle Fill="#FFF4F4F5" Height="636" Canvas.Left="-659" Stroke="Black" Canvas.Top="-517" Width="1536"/>-->
+    <!--<Button Content="Elipse" Canvas.Left="-437" Canvas.Top="-139" Width="301" Height="166" Click="Button_Click"/>
+        <Button Content="Rectangle" Canvas.Left="200" Canvas.Top="-139" Width="359" Height="166" Click="Button_Click_1"/>-->
+    <!--<InkCanvas Height="576" Name="ink_canvas" x:Name="MC" MouseLeftButtonDown="MC_MouseLeftButtonDown" MouseRightButtonDown="MC_MouseRightButtonDown" MouseMove="MC_MouseMove" Canvas.Left="-659" Canvas.Top="124" Width="1519" />-->
+    <!--<Canvas  Name="paintSurface" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </Canvas.Background>
+        </Canvas>-->
+    <!--<InkCanvas Height="576" Name="ink_canvas" Canvas.Left="-659" Canvas.Top="124" Width="1519" PointerPressed="Ink_canvas_PointerPressed"/>-->
+    <!--<Canvas Name="TestCanvas" />-->
+    <!--Click="InkCanvas_MouseDown"-->
+    <!--</Canvas>-->
+    <!-- </Canvas>-->
+    <!--
+    <DataGrid ItemsSource="{Binding MyItems}" AutoGeneratingColumn="OnAutoGeneratingColumn">
+        <DataGrid.RowStyle>
+            <Style TargetType="{x:Type DataGridRow}">
+                <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick" />
+            </Style>
+        </DataGrid.RowStyle>
+    </DataGrid>-->
 
 </Page>
