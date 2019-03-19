@@ -135,6 +135,10 @@ namespace tekenprogramma
                     cpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
                     cpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
                     //shapeslist.Find(x => x.actionType.Contains("selected")));
+                    //CreateRectangle tmp2 = shapeslist.Find(x => x.actionType.Contains("selected")));
+                    //tmp2.rightCoord = cpx;
+                    //tmp2.bottomCoord = cpy;
+                    //tmp2.actionType = "unselected";
                 }
             };
 
@@ -218,6 +222,18 @@ namespace tekenprogramma
         private void Resize_Click(object sender, RoutedEventArgs e)
         {
             mainAction ="resize";
+            var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
+            int left = Convert.ToInt16(tmp3.leftCoord); //left coord
+            int top = Convert.ToInt16(tmp3.topCoord); //top coord
+            string textWidth = Width.Text; //new width
+            int resizeWidth = Convert.ToInt16(textWidth);
+            string textHeight = Height.Text; //new height
+            int resizeHeight = Convert.ToInt16(textHeight);
+            int right = left + resizeWidth; //right coord
+            int bottom = top + resizeHeight; //top coord
+            tmp3.bottomCoord = bottom;
+            tmp3.rightCoord = right;
+            tmp3.actionType = "unselected";
 
         }
 
@@ -237,13 +253,29 @@ namespace tekenprogramma
         //breedte aanpassen
         private void Width_TextChanged(object sender, TextChangedEventArgs e)
         {
-            shapeslist.Find(x => x.actionType.Contains("selected")));
+            //var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
+            //int left = Convert.ToInt16(tmp3.leftCoord); //left coord
+            //TextBox t = (TextBox)sender;
+
+            //int resizeWidth = Convert.ToInt16(TextBox);
+            // resizeHeight = Convert.ToInt16(TextBox);
+            //int right = left + resizeWidth;
+            //tmp3.rightCoord = right;
+            //int bottom = top + resizeHeight;
+            //tmp3.bottomCoord = bottom;
+            //tmp3.actionType = "unselected";
+
         }
 
         //hoogte aanpassen
         private void Height_TextChanged(object sender, TextChangedEventArgs e)
         {
-            shapeslist.Find(x => x.actionType.Contains("selected")));
+            //var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
+            //int top = Convert.ToInt16(tmp3.leftCoord); //top coord
+            //TextBox t = (TextBox)sender;
+            //int resizeHeight = Convert.ToInt16(t.Text);
+            //int bottom = top + resizeHeight;
+            //tmp3.bottomCoord = bottom;
         }
 
 
