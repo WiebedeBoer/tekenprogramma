@@ -36,7 +36,7 @@ namespace tekenprogramma
     {
         string type = "Rectangle";
         string mainAction;
-        List<object> shapeslist = new List<object>();
+        List<CreateRectangle> shapeslist = new List<CreateRectangle>();
 
         //public class MouseBinding : System.Windows.Input.InputBinding;
 
@@ -45,10 +45,10 @@ namespace tekenprogramma
             private Shape rectangle;
             public int leftCoord;
             public int topCoord;
-            private int rightCoord;
-            private int bottomCoord;
+            public int rightCoord;
+            public int bottomCoord;
             //private string actionType;
-            public string actionType { get; set; }
+            public string actionType;
 
             /*
             public CreateRectangle(Shape rectangle)
@@ -222,7 +222,15 @@ namespace tekenprogramma
         private void Resize_Click(object sender, RoutedEventArgs e)
         {
             mainAction ="resize";
-            var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
+            CreateRectangle tmp3 = new CreateRectangle();
+            foreach(var c in shapeslist)
+            {
+                if(c.actionType == "selected")
+                {
+                    tmp3 = c;
+                }
+            }
+            //var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
             int left = Convert.ToInt16(tmp3.leftCoord); //left coord
             int top = Convert.ToInt16(tmp3.topCoord); //top coord
             string textWidth = Width.Text; //new width
