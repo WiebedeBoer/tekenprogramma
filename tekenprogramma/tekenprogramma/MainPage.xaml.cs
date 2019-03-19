@@ -35,8 +35,44 @@ namespace tekenprogramma
     public sealed partial class MainPage : Page
     {
         string type = "Rectangle";
+        string mainAction;
+        List<object> shapeslist = new List<object>();
 
         //public class MouseBinding : System.Windows.Input.InputBinding;
+
+        public class CreateRectangle
+        {
+            private Shape rectangle;
+            public int leftCoord;
+            public int topCoord;
+            private int rightCoord;
+            private int bottomCoord;
+            //private string actionType;
+            public string actionType { get; set; }
+
+            /*
+            public CreateRectangle(Shape rectangle)
+            {
+                this.rectangle = rectangle;
+            }
+            */
+
+            
+            public CreateRectangle()
+            {
+            }
+            
+
+            public void execute()
+            {
+                rectangle.Create();
+            }
+
+            public void OnPointerPressed()
+            {
+                this.actionType = "selected";
+            }
+        }
 
         public MainPage()
         {
@@ -52,8 +88,8 @@ namespace tekenprogramma
             PointerPoint dragStart = null;
 
             //global vars
-            List<object> shapeslist;
-            string mainAction;
+            
+            
             //int height = 1;
             //int width = 1;
             int cpx;
@@ -64,7 +100,6 @@ namespace tekenprogramma
             int dcpy;
 
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
-
             
             //MouseButtonEventHandler mouseDown = (sender, args) => {
             PointerEventHandler mouseDown = (sender, args) => {
@@ -74,8 +109,12 @@ namespace tekenprogramma
                 dcpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
                 dcpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
                 //element.CaptureMouse();
-                //Rectangle tmp = new CreateRectangle();
+                
                 element.CapturePointer(args.Pointer);
+                CreateRectangle tmp = new CreateRectangle();
+                tmp.leftCoord = dcpx;
+                tmp.topCoord = dcpy;
+                tmp.actionType = "create";
             };
             //MouseButtonEventHandler mouseUp = (sender, args) => {
             PointerEventHandler mouseUp = (sender, args) => {
@@ -95,6 +134,7 @@ namespace tekenprogramma
                     //Canvas.SetTop(element, p2.Y - dragStart.Value.Y);
                     cpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
                     cpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
+                    //shapeslist.Find(x => x.actionType.Contains("selected")));
                 }
             };
 
@@ -123,15 +163,15 @@ namespace tekenprogramma
         }
         
 
-        //ellipse
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //elipse
+        private void Elipse_Click(object sender, RoutedEventArgs e)
         {
             FrameworkElement button = e.OriginalSource as FrameworkElement;
             type = button.Name;
         }
 
         //rectangle
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Rectangle_Click(object sender, RoutedEventArgs e)
         {
             FrameworkElement button = e.OriginalSource as FrameworkElement;
             type = button.Name;
@@ -177,13 +217,14 @@ namespace tekenprogramma
         //resize
         private void Resize_Click(object sender, RoutedEventArgs e)
         {
+            mainAction ="resize";
 
         }
 
         //move
         private void Move_Click(object sender, RoutedEventArgs e)
         {
-
+            mainAction = "move";
         }
 
 
@@ -191,6 +232,18 @@ namespace tekenprogramma
         private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
             front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
+        }
+
+        //breedte aanpassen
+        private void Width_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            shapeslist.Find(x => x.actionType.Contains("selected")));
+        }
+
+        //hoogte aanpassen
+        private void Height_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            shapeslist.Find(x => x.actionType.Contains("selected")));
         }
 
 
@@ -248,185 +301,185 @@ namespace tekenprogramma
             firstcp = !firstcp;
         }
         */
-        
-    
 
 
 
 
 
 
-    /*
-private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
-{
-int x = e.GetCurrentPoint(paintSurface).Position.X;
-int y = e.GetCurrentPoint(paintSurface).Position.Y;
-}
-*/
 
 
-    /*
-
-     double height = 1;
-    double width = 1;
-    string type = "Rectangle";
-    double cpx;
-    double cpy;
-    bool firstcp = true;
-
-    public MainPage()
-    {
-        this.InitializeComponent();
-    }
-
-
-    public void MyMouseDoubleClickEvent(object sender, RoutedEventArgs e)
-    {
-        // Get mouse position
-        FrameworkElement button = e.OriginalSource as FrameworkElement;
-        type = button.Name;
-        Rectangle.Content = type;
-        //double x = e.GetCurrentPoint(front_canvas).Position.X;
-        //double y = e.GetCurrentPoint(front_canvas).Position.Y;
-        // Initialize a new Rectangle
-        //Rectangle r = new Rectangle();
-
-        // Set up rectangle's size
-        //r.Width = 5;
-        //r.Height = 5;
-
-        // Set up the Background color
-        //r.Fill = Brushes.Black;
-
-        // Set up the position in the window, at mouse coordonate
-        //Canvas.SetTop(r, p.Y);
-        //Canvas.SetLeft(r, p.X);
-
-        // Add rectangle to the Canvas
-        //ink_canvas.Children.Add(r);
-    }
-
+        /*
     private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        if (firstcp)
-        {
-            cpx = e.GetCurrentPoint(front_canvas).Position.X;
-            cpy = e.GetCurrentPoint(front_canvas).Position.Y;
-            Rectangle.Content = "Klik 1";
-        }
-        else
-        {
-            height = Math.Abs(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
-            width = Math.Abs(cpx - e.GetCurrentPoint(front_canvas).Position.X);
-            if(type == "Rectangle")
-            {
-                Rectangle tmp = new Rectangle();
-                tmp.Width = width;
-                tmp.Height = height;
-                tmp.Opacity = 1;
-                SolidColorBrush brush = new SolidColorBrush();
-                brush.Color = Windows.UI.Colors.Blue;
-                tmp.Fill = brush;
-                tmp.Stroke = brush;
-                front_canvas.Children.Add(tmp);
-                Rectangle.Content = "Klik 2";
-            }
-            else
-            {
-                Ellipse tmp = new Ellipse();
-                tmp.Width = width;
-                tmp.Height = height;
-                tmp.Opacity = 1;
-                SolidColorBrush brush = new SolidColorBrush();
-                brush.Color = Windows.UI.Colors.Blue;
-                tmp.Fill = brush;
-                tmp.Stroke = brush;
-                front_canvas.Children.Add(tmp);
-                Rectangle.Content = "Klik 2";
-            }
-        }
-        firstcp = !firstcp;
-}
-
-     */
-
-
-
-
-
-    /*
-private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-{
-    var row = sender as DataGridRow;
-    var dataElement = row?.DataContext as MyItem;
-    if (dataElement?.CanDoubleClick != true)
-        return;
-
-    // process double-click here
-    return;
-}
-*/
-
-    /*
-void image_MouseDown(object sender, MouseButtonEventArgs e)
-{
-    if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
-    {
-        Close();
-    }
-}
-*/
-
-    /*
-private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
-{
-    if (e.ButtonState == MouseButtonState.Pressed)
-        currentPoint = e.GetPosition(this);
-}
-
-private void Canvas_MouseMove_1(object sender, System.Windows.Input.MouseEventArgs e)
-{
-    if (e.LeftButton == MouseButtonState.Pressed)
-    {
-        Line line = new Line();
-
-        line.Stroke = SystemColors.WindowFrameBrush;
-        line.X1 = currentPoint.X;
-        line.Y1 = currentPoint.Y;
-        line.X2 = e.GetPosition(this).X;
-        line.Y2 = e.GetPosition(this).Y;
-
-        currentPoint = e.GetPosition(this);
-
-        paintSurface.Children.Add(line);
-    }
-}
-*/
-
-    /*
-    public void MyMouseDoubleClickEvent(object sender, Windows.UI.Xaml.Input.Mouse e)
-    {
-        // Get mouse position
-        Point p = Mouse.GetPosition(front_canvas);
-
-        // Initialize a new Rectangle
-        Rectangle r = new Rectangle();
-
-        // Set up rectangle's size
-        r.Width = 5;
-        r.Height = 5;
-
-        // Set up the Background color
-        r.Fill = Brushes.Black;
-
-        // Set up the position in the window, at mouse coordonate
-        Canvas.SetTop(r, p.Y);
-        Canvas.SetLeft(r, p.X);
-
-        // Add rectangle to the Canvas
-        ink_canvas.Children.Add(r);
+    int x = e.GetCurrentPoint(paintSurface).Position.X;
+    int y = e.GetCurrentPoint(paintSurface).Position.Y;
     }
     */
 
-}
+
+        /*
+
+         double height = 1;
+        double width = 1;
+        string type = "Rectangle";
+        double cpx;
+        double cpy;
+        bool firstcp = true;
+
+        public MainPage()
+        {
+            this.InitializeComponent();
+        }
+
+
+        public void MyMouseDoubleClickEvent(object sender, RoutedEventArgs e)
+        {
+            // Get mouse position
+            FrameworkElement button = e.OriginalSource as FrameworkElement;
+            type = button.Name;
+            Rectangle.Content = type;
+            //double x = e.GetCurrentPoint(front_canvas).Position.X;
+            //double y = e.GetCurrentPoint(front_canvas).Position.Y;
+            // Initialize a new Rectangle
+            //Rectangle r = new Rectangle();
+
+            // Set up rectangle's size
+            //r.Width = 5;
+            //r.Height = 5;
+
+            // Set up the Background color
+            //r.Fill = Brushes.Black;
+
+            // Set up the position in the window, at mouse coordonate
+            //Canvas.SetTop(r, p.Y);
+            //Canvas.SetLeft(r, p.X);
+
+            // Add rectangle to the Canvas
+            //ink_canvas.Children.Add(r);
+        }
+
+        private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (firstcp)
+            {
+                cpx = e.GetCurrentPoint(front_canvas).Position.X;
+                cpy = e.GetCurrentPoint(front_canvas).Position.Y;
+                Rectangle.Content = "Klik 1";
+            }
+            else
+            {
+                height = Math.Abs(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
+                width = Math.Abs(cpx - e.GetCurrentPoint(front_canvas).Position.X);
+                if(type == "Rectangle")
+                {
+                    Rectangle tmp = new Rectangle();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+                else
+                {
+                    Ellipse tmp = new Ellipse();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+            }
+            firstcp = !firstcp;
+    }
+
+         */
+
+
+
+
+
+        /*
+    private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var row = sender as DataGridRow;
+        var dataElement = row?.DataContext as MyItem;
+        if (dataElement?.CanDoubleClick != true)
+            return;
+
+        // process double-click here
+        return;
+    }
+    */
+
+        /*
+    void image_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+        {
+            Close();
+        }
+    }
+    */
+
+        /*
+    private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.ButtonState == MouseButtonState.Pressed)
+            currentPoint = e.GetPosition(this);
+    }
+
+    private void Canvas_MouseMove_1(object sender, System.Windows.Input.MouseEventArgs e)
+    {
+        if (e.LeftButton == MouseButtonState.Pressed)
+        {
+            Line line = new Line();
+
+            line.Stroke = SystemColors.WindowFrameBrush;
+            line.X1 = currentPoint.X;
+            line.Y1 = currentPoint.Y;
+            line.X2 = e.GetPosition(this).X;
+            line.Y2 = e.GetPosition(this).Y;
+
+            currentPoint = e.GetPosition(this);
+
+            paintSurface.Children.Add(line);
+        }
+    }
+    */
+
+        /*
+        public void MyMouseDoubleClickEvent(object sender, Windows.UI.Xaml.Input.Mouse e)
+        {
+            // Get mouse position
+            Point p = Mouse.GetPosition(front_canvas);
+
+            // Initialize a new Rectangle
+            Rectangle r = new Rectangle();
+
+            // Set up rectangle's size
+            r.Width = 5;
+            r.Height = 5;
+
+            // Set up the Background color
+            r.Fill = Brushes.Black;
+
+            // Set up the position in the window, at mouse coordonate
+            Canvas.SetTop(r, p.Y);
+            Canvas.SetLeft(r, p.X);
+
+            // Add rectangle to the Canvas
+            ink_canvas.Children.Add(r);
+        }
+        */
+
+    }
 }

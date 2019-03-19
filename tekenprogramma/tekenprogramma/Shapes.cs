@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace tekenprogramma
 {
+    
     public class Shape {
         public void Create()
         {
@@ -13,15 +14,17 @@ namespace tekenprogramma
 
         }
     }
-
-    class CreateRectangle
+    
+    /*
+    public class CreateRectangle
     {
         private Shape rectangle;
         private int leftCoord;
         private int topCoord;
         private int rightCoord;
         private int bottomCoord;
-        private string actionType;
+        //private string actionType;
+        public string actionType { get; set; }
 
         public CreateRectangle(Shape rectangle)
         {
@@ -38,15 +41,17 @@ namespace tekenprogramma
             this.actionType = "selected";
         }
     }
+    */
 
-    class CreateElipse
+    public class CreateElipse
     {
         private Shape elipse;
         private int leftCoord;
         private int topCoord;
         private int rightCoord;
         private int bottomCoord;
-        private string actionType;
+        //private string actionType;
+        public string actionType { get; set; }
 
         public CreateElipse(Shape elipse)
         {
