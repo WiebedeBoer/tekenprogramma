@@ -48,7 +48,7 @@ namespace tekenprogramma
             public int rightCoord;
             public int bottomCoord;
             //private string actionType;
-            public string actionType;
+            public string actionType { get; set; }
 
             /*
             public CreateRectangle(Shape rectangle)
@@ -60,6 +60,7 @@ namespace tekenprogramma
             
             public CreateRectangle()
             {
+                actionType = actionType;
             }
             
 
@@ -221,27 +222,30 @@ namespace tekenprogramma
         //resize
         private void Resize_Click(object sender, RoutedEventArgs e)
         {
-            mainAction ="resize";
-            CreateRectangle tmp3 = new CreateRectangle();
-            foreach(var c in shapeslist)
+            mainAction = "resize";
+            //CreateRectangle tmp3 = new CreateRectangle();
+            foreach (var resized in shapeslist)
             {
-                if(c.actionType == "selected")
+                if (resized.actionType == "selected")
                 {
-                    tmp3 = c;
+                    //tmp3 = resized;
+                    //var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
+                    int left = Convert.ToInt16(resized.leftCoord); //left coord
+                    int top = Convert.ToInt16(resized.topCoord); //top coord
+                    string textWidth = Width.Text; //new width
+                    int resizeWidth = Convert.ToInt16(textWidth);
+                    string textHeight = Height.Text; //new height
+                    int resizeHeight = Convert.ToInt16(textHeight);
+                    int right = left + resizeWidth; //right coord
+                    int bottom = top + resizeHeight; //top coord
+                    resized.bottomCoord = bottom;
+                    resized.rightCoord = right;
+                    resized.actionType = "unselected";
                 }
             }
-            //var tmp3 = shapeslist.Find(x => x.actionType.Contains("selected"));
-            int left = Convert.ToInt16(tmp3.leftCoord); //left coord
-            int top = Convert.ToInt16(tmp3.topCoord); //top coord
-            string textWidth = Width.Text; //new width
-            int resizeWidth = Convert.ToInt16(textWidth);
-            string textHeight = Height.Text; //new height
-            int resizeHeight = Convert.ToInt16(textHeight);
-            int right = left + resizeWidth; //right coord
-            int bottom = top + resizeHeight; //top coord
-            tmp3.bottomCoord = bottom;
-            tmp3.rightCoord = right;
-            tmp3.actionType = "unselected";
+
+
+
 
         }
 
@@ -249,6 +253,17 @@ namespace tekenprogramma
         private void Move_Click(object sender, RoutedEventArgs e)
         {
             mainAction = "move";
+            Span<int> storage = stackalloc int[10];
+            int num = 0;
+            foreach (ref int item in shapeslist)
+            {
+                item = num++;
+            }
+
+            foreach (ref readonly var item in shapeslist)
+            {
+                //Console.Write($"{item} ");
+            }
         }
 
 
