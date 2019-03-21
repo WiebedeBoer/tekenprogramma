@@ -6,26 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1248" Width="1564">
-    <Grid HorizontalAlignment="Left" Height="1348" VerticalAlignment="Top" Width="1564">
-        <Canvas Height="300" Width="200" Name="front_canvas" Grid.Row="1"  Grid.Column="0" PointerMoved="Front_canvas_PointerMoved" Background="#FF1139C3">
-            <Button Content="Undo" Canvas.Left="-600" Canvas.Top="-539" Width="301" Height="166" Click="Undo_Click" Name="Undo"/>
-            <Button Content="Redo" Canvas.Left="-200" Canvas.Top="-539" Width="301" Height="166" Click="Redo_Click" Name="Redo"/>
-            <TextBox Canvas.Left="200" Canvas.Top="-520" Width="301" Height="80" TextWrapping="Wrap" Text="Width" Name="Width" TextChanged="Width_TextChanged"/>
-            <TextBox Canvas.Left="200" Canvas.Top="-430" Width="301" Height="80" TextWrapping="Wrap" Text="Height" Name="Height" TextChanged="Height_TextChanged" />
-            <Button Content="Save" Canvas.Left="-600" Canvas.Top="-339" Width="301" Height="166" Click="Save_Click" Name="Save"/>
-            <Button Content="Load" Canvas.Left="-200" Canvas.Top="-339" Width="301" Height="166" Click="Load_Click" Name="Load"/>
-            <Button Content="Resize" Canvas.Left="200" Canvas.Top="-339" Width="301" Height="166" Click="Resize_Click" Name="Resize"/>
-            <Button Content="Move" Canvas.Left="550" Canvas.Top="-339" Width="301" Height="166" Click="Move_Click" Name="Move"/>
-            <Button Content="Elipse" Canvas.Left="-600" Canvas.Top="-139" Width="301" Height="166" Click="Elipse_Click" Name="Elipse"/>
-            <Button Content="Rectangle" Canvas.Left="-200" Canvas.Top="-139" Width="301" Height="166" Click="Rectangle_Click" Name="Rectangle"/>
-            <Button Content="Ornament" Canvas.Left="200" Canvas.Top="-139" Width="301" Height="166" Click="Ornament_Click" Name="Ornament"/>
-            <Button Content="Group" Canvas.Left="550" Canvas.Top="-139" Width="301" Height="166" Click="Group_Click" Name="Group"/>
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1268" Width="1564">
+    <Grid HorizontalAlignment="Left" Height="1268" VerticalAlignment="Top" Width="1564">
+        <Canvas Height="300" Width="1500" Name="front_canvas" Grid.Row="0"  Grid.Column="0" PointerMoved="Front_canvas_PointerMoved" Background="#FF1139C3">
+            <Button Content="Undo" Canvas.Left="0" Canvas.Top="-120" Width="301" Height="166" Click="Undo_Click" Name="Undo"/>
+            <Button Content="Redo" Canvas.Left="400" Canvas.Top="-120" Width="301" Height="166" Click="Redo_Click" Name="Redo"/>
+            <TextBox Canvas.Left="800" Canvas.Top="-120" Width="301" Height="80" TextWrapping="Wrap" Text="Width" Name="Width" TextChanged="Width_TextChanged"/>
+            <TextBox Canvas.Left="800" Canvas.Top="-10" Width="301" Height="80" TextWrapping="Wrap" Text="Height" Name="Height" TextChanged="Height_TextChanged" />
+            <Button Content="Save" Canvas.Left="0" Canvas.Top="139" Width="301" Height="166" Click="Save_Click" Name="Save"/>
+            <Button Content="Load" Canvas.Left="400" Canvas.Top="139" Width="301" Height="166" Click="Load_Click" Name="Load"/>
+            <Button Content="Resize" Canvas.Left="800" Canvas.Top="139" Width="301" Height="166" Click="Resize_Click" Name="Resize"/>
+            <Button Content="Move" Canvas.Left="1150" Canvas.Top="139" Width="301" Height="166" Click="Move_Click" Name="Move"/>
+            <Button Content="Elipse" Canvas.Left="0" Canvas.Top="339" Width="301" Height="166" Click="Elipse_Click" Name="Elipse"/>
+            <Button Content="Rectangle" Canvas.Left="400" Canvas.Top="339" Width="301" Height="166" Click="Rectangle_Click" Name="Rectangle"/>
+            <Button Content="Ornament" Canvas.Left="800" Canvas.Top="339" Width="301" Height="166" Click="Ornament_Click" Name="Ornament"/>
+            <Button Content="Group" Canvas.Left="1150" Canvas.Top="339" Width="301" Height="166" Click="Group_Click" Name="Group"/>
 
         </Canvas>
-        <Canvas HorizontalAlignment="Left" AllowDrop="True" Height="100" Margin="432,1000,0,0" VerticalAlignment="Top" Width="100" Name="paintSurface" Opacity="0" PointerPressed="Ink_canvas_PointerPressed">
+        <Canvas HorizontalAlignment="Left" AllowDrop="True" Height="300" Margin="0,1000,0,0" VerticalAlignment="Bottom" Width="1564" Name="paintSurface" Opacity="0" PointerPressed="Ink_canvas_PointerPressed">
             <Canvas.Background>
-                <SolidColorBrush Color="Red" Opacity="0"/>
+                <SolidColorBrush Color="Red" Opacity="50"/>
             </Canvas.Background>
         </Canvas>
 
