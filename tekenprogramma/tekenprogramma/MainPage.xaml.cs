@@ -38,52 +38,9 @@ namespace tekenprogramma
         string mainAction;
         List<CreateRectangle> shapeslist = new List<CreateRectangle>();
         public bool moving = false;
-        public FrameworkElement movingelement;
-        int height = 1;
-        int width = 1;
-        int cpx;
-        int cpy;
-        bool firstcp = true;
-        int elements = 0;
-        int dcpx;
-        int dcpy;
 
-        //public class MouseBinding : System.Windows.Input.InputBinding;
 
-        public class CreateRectangle
-        {
-            private Shape rectangle;
-            public int leftCoord;
-            public int topCoord;
-            public int rightCoord;
-            public int bottomCoord;
-            //private string actionType;
-            public string actionType { get; set; }
 
-            /*
-            public CreateRectangle(Shape rectangle)
-            {
-                this.rectangle = rectangle;
-            }
-            */
-
-            
-            public CreateRectangle()
-            {
-                actionType = actionType;
-            }
-            
-
-            public void execute()
-            {
-                rectangle.Create();
-            }
-
-            public void OnPointerPressed()
-            {
-                this.actionType = "selected";
-            }
-        }
 
         public MainPage()
         {
@@ -94,13 +51,22 @@ namespace tekenprogramma
             //w.Height = 400;
 
             //var c = new Canvas();
-            var c = front_canvas;
+            var c = paintSurface;
 
             PointerPoint dragStart = null;
 
-            //global vars
-            
-            
+
+
+                //global vars               
+
+            //int height = 1;
+            //int width = 1;
+            int cpx;
+            int cpy;
+            //bool firstcp = true;
+            //int elements = 0;
+            int dcpx;
+            int dcpy;
 
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
             
@@ -109,8 +75,8 @@ namespace tekenprogramma
                 var element = (UIElement)sender;
                 dragStart = args.GetCurrentPoint(element);
                 //dragStart = args.GetPosition(element);
-                dcpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
-                dcpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
+                dcpx = Convert.ToInt16(args.GetCurrentPoint(paintSurface).Position.X);
+                dcpy = Convert.ToInt16(args.GetCurrentPoint(paintSurface).Position.Y);
                 //element.CaptureMouse();
                 
                 element.CapturePointer(args.Pointer);
@@ -135,8 +101,8 @@ namespace tekenprogramma
                     
                     //Canvas.SetLeft(element, p2.X - dragStart.Value.X);
                     //Canvas.SetTop(element, p2.Y - dragStart.Value.Y);
-                    cpx = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.X);
-                    cpy = Convert.ToInt16(args.GetCurrentPoint(front_canvas).Position.Y);
+                    cpx = Convert.ToInt16(args.GetCurrentPoint(paintSurface).Position.X);
+                    cpy = Convert.ToInt16(args.GetCurrentPoint(paintSurface).Position.Y);
                     //shapeslist.Find(x => x.actionType.Contains("selected")));
                     //CreateRectangle tmp2 = shapeslist.Find(x => x.actionType.Contains("selected")));
                     //tmp2.rightCoord = cpx;
@@ -245,11 +211,35 @@ namespace tekenprogramma
                     resized.actionType = "unselected";
                 }
             }
+
+
+
+
         }
 
         //move
         private void Move_Click(object sender, RoutedEventArgs e)
         {
+            mainAction = "move";
+
+            foreach (var resized in shapeslist)
+            {
+                if (resized.actionType == "selected")
+                {
+                    int left = Convert.ToInt16(resized.leftCoord); //left coord
+                    int top = Convert.ToInt16(resized.topCoord); //top coord
+                    string textWidth = Width.Text; //new width
+                    int resizeWidth = Convert.ToInt16(textWidth);
+                    string textHeight = Height.Text; //new height
+                    int resizeHeight = Convert.ToInt16(textHeight);
+                    int right = left + resizeWidth; //right coord
+                    int bottom = top + resizeHeight; //top coord
+                    resized.bottomCoord = bottom;
+                    resized.rightCoord = right;
+                    resized.actionType = "unselected";
+                }
+            }
+
             if (moving)
             {
                 front_canvas.Children.Remove(movingelement);
@@ -257,13 +247,71 @@ namespace tekenprogramma
                 Canvas.SetTop(movingelement, cpy);
             }
             moving = !moving;
+
+            /*
+            Span<int> storage = stackalloc int[10];
+            int num = 0;
+            foreach (ref int item in shapeslist)
+            {
+                item = num++;
+            }
+
+            foreach (ref readonly var item in shapeslist)
+            {
+                //Console.Write($"{item} ");
+            }
+            */
         }
 
 
-        //paint canvas
-        private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
+
+/*
+                     movingelement = e.OriginalSource as FrameworkElement;
+                    height = Convert.ToInt16(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
+                    width = Convert.ToInt16(cpx - e.GetCurrentPoint(front_canvas).Position.X);
+                    if (type == "Rectangle")
+                    {
+                        Rectangle tmp = new Rectangle();
+                        tmp.Width = Math.Abs(width);
+                        tmp.Height = Math.Abs(height);
+                        tmp.Opacity = 1;
+                        SolidColorBrush brush = new SolidColorBrush();
+                        brush.Color = Windows.UI.Colors.Blue;
+                        tmp.Fill = brush;
+                        tmp.Stroke = brush;
+                        tmp.Name = elements.ToString();
+                        Canvas.SetLeft(tmp, cpx);
+                        Canvas.SetTop(tmp, cpy);
+                        tmp.PointerPressed += Ink_canvas_PointerPressed;
+                        front_canvas.Children.Add(tmp);
+                        Rectangle.Content = "Klik 2";
+                    }
+                    else
+                    {
+                        Ellipse tmp = new Ellipse();
+                        tmp.Width = width;
+                        tmp.Height = height;
+                        tmp.Opacity = 1;
+                        SolidColorBrush brush = new SolidColorBrush();
+                        brush.Color = Windows.UI.Colors.Blue;
+                        tmp.Fill = brush;
+                        tmp.Stroke = brush;
+                        tmp.Name = elements.ToString();
+                        ++elements;
+                        Canvas.SetLeft(tmp, cpx);
+                        Canvas.SetTop(tmp, cpy);
+                        tmp.PointerPressed += Ink_canvas_PointerPressed;
+                        front_canvas.Children.Add(tmp);
+                        Rectangle.Content = "Klik 2";
+                    }
+                    FrameworkElement tmptwee = e.OriginalSource as FrameworkElement;
+                    Rectangle.Content = tmptwee.Name;
+     */
+
+//paint canvas
+private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
+            //front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
         }
 
         //breedte aanpassen
@@ -295,8 +343,8 @@ namespace tekenprogramma
         }
 
 
-        
-        private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        /*
+         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (moving)
             {
@@ -357,8 +405,65 @@ namespace tekenprogramma
                 }
                 firstcp = !firstcp;
             }
+}
+         
+         */
+
+
+        /*
+        private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (firstcp)
+            {
+                cpx = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.X);
+                cpy = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.Y);
+                Rectangle.Content = "Klik 1";
+            }
+            else
+            {
+                height = Convert.ToInt16(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
+                width = Convert.ToInt16(cpx - e.GetCurrentPoint(front_canvas).Position.X);
+                if (type == "Rectangle")
+                {
+                    Rectangle tmp = new Rectangle();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    tmp.Name = elements.ToString();
+                    Canvas.SetLeft(tmp, cpx);
+                    Canvas.SetTop(tmp, cpy);
+                    tmp.PointerPressed += Ink_canvas_PointerPressed;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+                else
+                {
+                    Ellipse tmp = new Ellipse();
+                    tmp.Width = width;
+                    tmp.Height = height;
+                    tmp.Opacity = 1;
+                    SolidColorBrush brush = new SolidColorBrush();
+                    brush.Color = Windows.UI.Colors.Blue;
+                    tmp.Fill = brush;
+                    tmp.Stroke = brush;
+                    tmp.Name = elements.ToString();
+                    ++elements;
+                    Canvas.SetLeft(tmp, cpx);
+                    Canvas.SetTop(tmp, cpy);
+                    tmp.PointerPressed += Ink_canvas_PointerPressed;
+                    front_canvas.Children.Add(tmp);
+                    Rectangle.Content = "Klik 2";
+                }
+                FrameworkElement tmptwee = e.OriginalSource as FrameworkElement;
+                Rectangle.Content = tmptwee.Name;
+            }
+            firstcp = !firstcp;
         }
-        
+        */
 
 
 

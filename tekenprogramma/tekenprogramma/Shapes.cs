@@ -14,7 +14,43 @@ namespace tekenprogramma
 
         }
     }
-    
+
+    //public class MouseBinding : System.Windows.Input.InputBinding;
+    public class CreateRectangle
+    {
+        private Shape rectangle;
+        public int leftCoord;
+        public int topCoord;
+        public int rightCoord;
+        public int bottomCoord;
+        //private string actionType;
+        public string actionType { get; set; }
+
+
+        //public CreateRectangle(Shape rectangle)
+        //{
+        //    this.rectangle = rectangle;
+        //}
+
+
+
+        public CreateRectangle()
+        {
+            actionType = actionType;
+        }
+
+
+        public void execute()
+        {
+            rectangle.Create();
+        }
+
+        public void OnPointerPressed()
+        {
+            this.actionType = "selected";
+        }
+    }
+
     /*
     public class CreateRectangle
     {
@@ -42,6 +78,8 @@ namespace tekenprogramma
         }
     }
     */
+
+
 
     public class CreateElipse
     {
