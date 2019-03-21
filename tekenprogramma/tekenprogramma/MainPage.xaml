@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1268" Width="1564">
     <Grid HorizontalAlignment="Left" Height="1268" VerticalAlignment="Top" Width="1564">
         <!--first row-->
-        <Canvas HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,618" Height="650" Width="1564" Name="front_canvas" PointerMoved="Front_canvas_PointerMoved" Background="#FF1139C3">
+        <Canvas HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,618" Height="650" Width="1564" Name="front_canvas" PointerMoved="Front_canvas_PointerMoved" Background="#FFFCFCC3">
             <Button Content="Undo" Canvas.Left="0" Canvas.Top="20" Width="301" Height="166" Click="Undo_Click" Name="Undo"/>
             <Button Content="Redo" Canvas.Left="400" Canvas.Top="20" Width="301" Height="166" Click="Redo_Click" Name="Redo"/>
             <TextBox Canvas.Left="800" Canvas.Top="20" Width="301" Height="80" TextWrapping="Wrap" Text="Width" Name="Width" TextChanged="Width_TextChanged"/>
