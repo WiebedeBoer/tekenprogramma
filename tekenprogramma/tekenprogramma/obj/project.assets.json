@@ -27909,24 +27909,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\wiebe\\.nuget\\packages\\": {},
+    "C:\\Users\\pimsp\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wiebe\\source\\repos\\tekenprogramma\\tekenprogramma\\tekenprogramma.csproj",
+      "projectUniqueName": "C:\\Users\\pimsp\\Desktop\\tekenprogramma.git\\branches\\wiebe\\tekenprogramma\\tekenprogramma\\tekenprogramma.csproj",
       "projectName": "tekenprogramma",
-      "projectPath": "C:\\Users\\wiebe\\source\\repos\\tekenprogramma\\tekenprogramma\\tekenprogramma.csproj",
-      "packagesPath": "C:\\Users\\wiebe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wiebe\\source\\repos\\tekenprogramma\\tekenprogramma\\obj\\",
+      "projectPath": "C:\\Users\\pimsp\\Desktop\\tekenprogramma.git\\branches\\wiebe\\tekenprogramma\\tekenprogramma\\tekenprogramma.csproj",
+      "packagesPath": "C:\\Users\\pimsp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pimsp\\Desktop\\tekenprogramma.git\\branches\\wiebe\\tekenprogramma\\tekenprogramma\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\wiebe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pimsp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

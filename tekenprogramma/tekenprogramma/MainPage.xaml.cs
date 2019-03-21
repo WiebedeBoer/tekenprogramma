@@ -37,6 +37,16 @@ namespace tekenprogramma
         string type = "Rectangle";
         string mainAction;
         List<CreateRectangle> shapeslist = new List<CreateRectangle>();
+        public bool moving = false;
+        public FrameworkElement movingelement;
+        int height = 1;
+        int width = 1;
+        int cpx;
+        int cpy;
+        bool firstcp = true;
+        int elements = 0;
+        int dcpx;
+        int dcpy;
 
         //public class MouseBinding : System.Windows.Input.InputBinding;
 
@@ -91,14 +101,6 @@ namespace tekenprogramma
             //global vars
             
             
-            //int height = 1;
-            //int width = 1;
-            int cpx;
-            int cpy;
-            //bool firstcp = true;
-            //int elements = 0;
-            int dcpx;
-            int dcpy;
 
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Colors.Red);
             
@@ -243,27 +245,18 @@ namespace tekenprogramma
                     resized.actionType = "unselected";
                 }
             }
-
-
-
-
         }
 
         //move
         private void Move_Click(object sender, RoutedEventArgs e)
         {
-            mainAction = "move";
-            Span<int> storage = stackalloc int[10];
-            int num = 0;
-            foreach (ref int item in shapeslist)
+            if (moving)
             {
-                item = num++;
+                front_canvas.Children.Remove(movingelement);
+                Canvas.SetLeft(movingelement, cpx);
+                Canvas.SetTop(movingelement, cpy);
             }
-
-            foreach (ref readonly var item in shapeslist)
-            {
-                //Console.Write($"{item} ");
-            }
+            moving = !moving;
         }
 
 
@@ -302,60 +295,70 @@ namespace tekenprogramma
         }
 
 
-        /*
+        
         private void Ink_canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (firstcp)
+            if (moving)
             {
                 cpx = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.X);
                 cpy = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.Y);
-                Rectangle.Content = "Klik 1";
+                Move_Click(sender, e);
             }
             else
             {
-                height = Convert.ToInt16(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
-                width = Convert.ToInt16(cpx - e.GetCurrentPoint(front_canvas).Position.X);
-                if (type == "Rectangle")
+                if (firstcp)
                 {
-                    Rectangle tmp = new Rectangle();
-                    tmp.Width = width;
-                    tmp.Height = height;
-                    tmp.Opacity = 1;
-                    SolidColorBrush brush = new SolidColorBrush();
-                    brush.Color = Windows.UI.Colors.Blue;
-                    tmp.Fill = brush;
-                    tmp.Stroke = brush;
-                    tmp.Name = elements.ToString();
-                    Canvas.SetLeft(tmp, cpx);
-                    Canvas.SetTop(tmp, cpy);
-                    tmp.PointerPressed += Ink_canvas_PointerPressed;
-                    front_canvas.Children.Add(tmp);
-                    Rectangle.Content = "Klik 2";
+                    cpx = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.X);
+                    cpy = Convert.ToInt16(e.GetCurrentPoint(front_canvas).Position.Y);
+                    Rectangle.Content = "Klik 1";
                 }
                 else
                 {
-                    Ellipse tmp = new Ellipse();
-                    tmp.Width = width;
-                    tmp.Height = height;
-                    tmp.Opacity = 1;
-                    SolidColorBrush brush = new SolidColorBrush();
-                    brush.Color = Windows.UI.Colors.Blue;
-                    tmp.Fill = brush;
-                    tmp.Stroke = brush;
-                    tmp.Name = elements.ToString();
-                    ++elements;
-                    Canvas.SetLeft(tmp, cpx);
-                    Canvas.SetTop(tmp, cpy);
-                    tmp.PointerPressed += Ink_canvas_PointerPressed;
-                    front_canvas.Children.Add(tmp);
-                    Rectangle.Content = "Klik 2";
+                    movingelement = e.OriginalSource as FrameworkElement;
+                    height = Convert.ToInt16(cpy - e.GetCurrentPoint(front_canvas).Position.Y);
+                    width = Convert.ToInt16(cpx - e.GetCurrentPoint(front_canvas).Position.X);
+                    if (type == "Rectangle")
+                    {
+                        Rectangle tmp = new Rectangle();
+                        tmp.Width = Math.Abs(width);
+                        tmp.Height = Math.Abs(height);
+                        tmp.Opacity = 1;
+                        SolidColorBrush brush = new SolidColorBrush();
+                        brush.Color = Windows.UI.Colors.Blue;
+                        tmp.Fill = brush;
+                        tmp.Stroke = brush;
+                        tmp.Name = elements.ToString();
+                        Canvas.SetLeft(tmp, cpx);
+                        Canvas.SetTop(tmp, cpy);
+                        tmp.PointerPressed += Ink_canvas_PointerPressed;
+                        front_canvas.Children.Add(tmp);
+                        Rectangle.Content = "Klik 2";
+                    }
+                    else
+                    {
+                        Ellipse tmp = new Ellipse();
+                        tmp.Width = width;
+                        tmp.Height = height;
+                        tmp.Opacity = 1;
+                        SolidColorBrush brush = new SolidColorBrush();
+                        brush.Color = Windows.UI.Colors.Blue;
+                        tmp.Fill = brush;
+                        tmp.Stroke = brush;
+                        tmp.Name = elements.ToString();
+                        ++elements;
+                        Canvas.SetLeft(tmp, cpx);
+                        Canvas.SetTop(tmp, cpy);
+                        tmp.PointerPressed += Ink_canvas_PointerPressed;
+                        front_canvas.Children.Add(tmp);
+                        Rectangle.Content = "Klik 2";
+                    }
+                    FrameworkElement tmptwee = e.OriginalSource as FrameworkElement;
+                    Rectangle.Content = tmptwee.Name;
                 }
-                FrameworkElement tmptwee = e.OriginalSource as FrameworkElement;
-                Rectangle.Content = tmptwee.Name;
+                firstcp = !firstcp;
             }
-            firstcp = !firstcp;
         }
-        */
+        
 
 
 
