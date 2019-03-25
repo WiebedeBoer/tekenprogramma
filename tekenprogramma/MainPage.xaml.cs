@@ -204,8 +204,14 @@ namespace tekenprogramma
         //undo
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
-
+            //actionsList.Find(x => x.actionType.Contains("selected"));
+            //actionsList.FindLastIndex();
+            //public Actions FindLast(Predicate<Actions> match);
+            //List<Actions>.FindLast(Predicate<Actions>);
+            //actionsList.FindLast(action(Actions){ });
         }
+
+
 
         //redo
         private void Redo_Click(object sender, RoutedEventArgs e)
