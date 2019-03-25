@@ -1,2 +1,0 @@
-# tekenprogramma
-design patterns
