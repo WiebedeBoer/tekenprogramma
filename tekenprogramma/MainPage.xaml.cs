@@ -10,19 +10,41 @@ using System.Collections.Generic;
 namespace tekenprogramma
 {
 
-    public class Actions
+    public class Receiver
     {
         private string action;
-        public Actions(string action)
+
+        public Receiver(){
+        }
+
+        void Actions(string action)
         {
             this.action = action;
         }
+    }
+
+    public class ConcreteCommand : ICommand
+    {
+        public ConcreteCommand()
+        {
+        }
+
+        void ICommand.Execute()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    interface ICommand
+    {
+        void Execute();
     }
 
     public sealed partial class MainPage : Page
     {
 
         //mainpage class variables
+        Receiver action = new Receiver();
         string type = "Rectangle"; //default shape
         double cpx;
         double cpy;
@@ -31,8 +53,9 @@ namespace tekenprogramma
         Rectangle backuprectangle; //rectangle shape
         Ellipse backupellipse; //ellipse shape
         string actionType ="create"; //default action
-        List<Actions> actionsList = new List<Actions>();
-        List<Actions> redoList = new List<Actions>();
+        List<ICommand> actionsList = new List<ICommand>();
+        List<ICommand> redoList = new List<ICommand>();
+        //List<Actions> redoList = new List<Actions>();
 
         public MainPage()
         {
@@ -208,15 +231,24 @@ namespace tekenprogramma
             //actionsList.FindLastIndex();
             //public Actions FindLast(Predicate<Actions> match);
             //List<Actions>.FindLast(Predicate<Actions>);
-            //actionsList.FindLast(action(Actions){ });
+            //actionsList.FindLast(actionsList(Receiver){ });
+            ICommand lastCommand = actionsList.FindLast(delegate (ICommand lc)
+            {
+                redoList.Add(lc);
+                actionsList.Remove(lc);
+                return lc;
+            });
         }
-
-
 
         //redo
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
-
+            ICommand lastCommand = redoList.FindLast(delegate (ICommand nc)
+            {
+                actionsList.Add(nc);
+                redoList.Remove(nc);
+                return nc;
+            });
         }
 
         //save
