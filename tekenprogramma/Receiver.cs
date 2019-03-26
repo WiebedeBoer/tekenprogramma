@@ -30,10 +30,16 @@ namespace tekenprogramma
         {
             throw new NotImplementedException();
         }
+
+        void ICommand.Undo()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     interface ICommand
     {
         void Execute();
+        void Undo();
     }
 }
