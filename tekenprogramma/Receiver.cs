@@ -20,6 +20,7 @@ namespace tekenprogramma
         }
     }
 
+    /*
     public class ConcreteCommand : ICommand
     {
         public ConcreteCommand()
@@ -36,10 +37,11 @@ namespace tekenprogramma
             throw new NotImplementedException();
         }
     }
+    */
 
     interface ICommand
     {
         void Execute();
-        void Undo();
+        //void Undo();
     }
 }

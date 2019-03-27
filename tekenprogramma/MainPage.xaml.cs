@@ -10,6 +10,80 @@ using System.Collections.Generic;
 namespace tekenprogramma
 {
 
+
+    public class MakeRectangle : ICommand
+    {
+        private double cpx;
+        private double cpy;
+        private double top;
+        private double left;
+
+        public double ReturnSmallest(double first, double last)
+        {
+            if (first < last)
+            {
+                return first;
+            }
+            else
+            {
+                return last;
+            }
+        }
+
+        void ICommand.Execute()
+        {
+            //throw new NotImplementedException();
+            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
+            newRectangle.Height = Math.Abs(cpy - top); //set height
+            newRectangle.Width = Math.Abs(cpx - left); //set width
+            SolidColorBrush brush = new SolidColorBrush(); //brush
+            brush.Color = Windows.UI.Colors.Blue; //standard brush color is blue
+            newRectangle.Fill = brush; //fill color
+            newRectangle.Name = "Rectangle"; //attach name
+            Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
+            Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
+            newRectangle.PointerPressed += Drawing_pressed;
+            paintSurface.Children.Add(newRectangle); //add shape to canvas    
+        }
+    }
+
+    public class MakeEllipse : ICommand
+    {
+        private double cpx;
+        private double cpy;
+        private double top;
+        private double left;
+
+        public double ReturnSmallest(double first, double last)
+        {
+            if (first < last)
+            {
+                return first;
+            }
+            else
+            {
+                return last;
+            }
+        }
+
+        void ICommand.Execute()
+        {
+            //throw new NotImplementedException();
+            Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
+            newEllipse.Height = Math.Abs(cpy - top);//set height
+            newEllipse.Width = Math.Abs(cpx - left);//set width
+            SolidColorBrush brush = new SolidColorBrush();//brush
+            brush.Color = Windows.UI.Colors.Blue;//standard brush color is blue
+            newEllipse.Fill = brush;//fill color
+            newEllipse.Name = "Ellipse";//attach name
+            Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
+            Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
+            newEllipse.PointerPressed += Drawing_pressed;
+            paintSurface.Children.Add(newEllipse); //add shape to canvas
+        }
+    }
+
+
     public sealed partial class MainPage : Page
     {
 
@@ -23,8 +97,8 @@ namespace tekenprogramma
         Rectangle backuprectangle; //rectangle shape
         Ellipse backupellipse; //ellipse shape
         string actionType ="create"; //default action
-        List<ICommand> actionsList = new List<ICommand>();
-        List<ICommand> redoList = new List<ICommand>();
+        private List<ICommand> actionsList = new List<ICommand>();
+        private List<ICommand> redoList = new List<ICommand>();
         //List<Actions> redoList = new List<Actions>();
 
         public MainPage()
@@ -97,33 +171,35 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
-            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
-            newRectangle.Height = Math.Abs(cpy - top); //set height
-            newRectangle.Width = Math.Abs(cpx - left); //set width
-            SolidColorBrush brush = new SolidColorBrush(); //brush
-            brush.Color = Windows.UI.Colors.Blue; //standard brush color is blue
-            newRectangle.Fill = brush; //fill color
-            newRectangle.Name = "Rectangle"; //attach name
-            Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
-            Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
-            newRectangle.PointerPressed += Drawing_pressed;
-            paintSurface.Children.Add(newRectangle); //add shape to canvas            
+            //Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
+            //newRectangle.Height = Math.Abs(cpy - top); //set height
+            //newRectangle.Width = Math.Abs(cpx - left); //set width
+            //SolidColorBrush brush = new SolidColorBrush(); //brush
+            //brush.Color = Windows.UI.Colors.Blue; //standard brush color is blue
+            //newRectangle.Fill = brush; //fill color
+            //newRectangle.Name = "Rectangle"; //attach name
+            //Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
+            //Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
+            //newRectangle.PointerPressed += Drawing_pressed;
+            //paintSurface.Children.Add(newRectangle); //add shape to canvas
+            MakeRectangle makerec = new MakeRectangle();
         }
 
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
-            Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
-            newEllipse.Height = Math.Abs(cpy - top);//set height
-            newEllipse.Width = Math.Abs(cpx - left);//set width
-            SolidColorBrush brush = new SolidColorBrush();//brush
-            brush.Color = Windows.UI.Colors.Blue;//standard brush color is blue
-            newEllipse.Fill = brush;//fill color
-            newEllipse.Name = "Ellipse";//attach name
-            Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
-            Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
-            newEllipse.PointerPressed += Drawing_pressed;
-            paintSurface.Children.Add(newEllipse); //add shape to canvas
+            //Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
+            //newEllipse.Height = Math.Abs(cpy - top);//set height
+            //newEllipse.Width = Math.Abs(cpx - left);//set width
+            //SolidColorBrush brush = new SolidColorBrush();//brush
+            //brush.Color = Windows.UI.Colors.Blue;//standard brush color is blue
+            //newEllipse.Fill = brush;//fill color
+            //newEllipse.Name = "Ellipse";//attach name
+            //Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
+            //Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
+            //newEllipse.PointerPressed += Drawing_pressed;
+            //paintSurface.Children.Add(newEllipse); //add shape to canvas
+            MakeEllipse makeelip = new MakeEllipse();
         }
 
         //moving shape
