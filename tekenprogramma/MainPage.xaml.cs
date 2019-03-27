@@ -42,8 +42,8 @@ namespace tekenprogramma
             newRectangle.Name = "Rectangle"; //attach name
             Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
             Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
-            newRectangle.PointerPressed += Drawing_pressed;
-            paintSurface.Children.Add(newRectangle); //add shape to canvas    
+            //newRectangle.PointerPressed += Drawing_pressed;
+            //paintSurface.Children.Add(newRectangle); //add shape to canvas    
         }
     }
 
@@ -78,8 +78,8 @@ namespace tekenprogramma
             newEllipse.Name = "Ellipse";//attach name
             Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
             Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
-            newEllipse.PointerPressed += Drawing_pressed;
-            paintSurface.Children.Add(newEllipse); //add shape to canvas
+            //newEllipse.PointerPressed += Drawing_pressed;
+            //paintSurface.Children.Add(newEllipse); //add shape to canvas
         }
     }
 
@@ -171,7 +171,8 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
-            //Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
+            MakeRectangle makerec = new MakeRectangle();
+            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
             //newRectangle.Height = Math.Abs(cpy - top); //set height
             //newRectangle.Width = Math.Abs(cpx - left); //set width
             //SolidColorBrush brush = new SolidColorBrush(); //brush
@@ -180,15 +181,16 @@ namespace tekenprogramma
             //newRectangle.Name = "Rectangle"; //attach name
             //Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
             //Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
-            //newRectangle.PointerPressed += Drawing_pressed;
-            //paintSurface.Children.Add(newRectangle); //add shape to canvas
-            MakeRectangle makerec = new MakeRectangle();
+            newRectangle.PointerPressed += Drawing_pressed;
+            paintSurface.Children.Add(newRectangle); //add shape to canvas
+
         }
 
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
-            //Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
+            MakeEllipse makeelip = new MakeEllipse();
+            Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
             //newEllipse.Height = Math.Abs(cpy - top);//set height
             //newEllipse.Width = Math.Abs(cpx - left);//set width
             //SolidColorBrush brush = new SolidColorBrush();//brush
@@ -197,9 +199,8 @@ namespace tekenprogramma
             //newEllipse.Name = "Ellipse";//attach name
             //Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
             //Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
-            //newEllipse.PointerPressed += Drawing_pressed;
-            //paintSurface.Children.Add(newEllipse); //add shape to canvas
-            MakeEllipse makeelip = new MakeEllipse();
+            newEllipse.PointerPressed += Drawing_pressed;
+            paintSurface.Children.Add(newEllipse); //add shape to canvas            
         }
 
         //moving shape
