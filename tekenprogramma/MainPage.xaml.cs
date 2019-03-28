@@ -66,6 +66,11 @@ namespace tekenprogramma
             }
         }
 
+        public void Execute()
+        {
+
+        }
+
         void ICommand.Execute()
         {
             //throw new NotImplementedException();
@@ -189,8 +194,10 @@ namespace tekenprogramma
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
+            Receiver receiver = new Receiver();
             MakeEllipse makeelip = new MakeEllipse();
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
+            string action = "makeelipse";
             //newEllipse.Height = Math.Abs(cpy - top);//set height
             //newEllipse.Width = Math.Abs(cpx - left);//set width
             //SolidColorBrush brush = new SolidColorBrush();//brush
@@ -199,6 +206,8 @@ namespace tekenprogramma
             //newEllipse.Name = "Ellipse";//attach name
             //Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
             //Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
+            receiver.Actions(action);
+            makeelip.Execute();
             newEllipse.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newEllipse); //add shape to canvas            
         }
@@ -274,11 +283,6 @@ namespace tekenprogramma
         //undo
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
-            //actionsList.Find(x => x.actionType.Contains("selected"));
-            //actionsList.FindLastIndex();
-            //public Actions FindLast(Predicate<Actions> match);
-            //List<Actions>.FindLast(Predicate<Actions>);
-            //actionsList.FindLast(actionsList(Receiver){ });
            int LastInList = actionsList.Count - 1;
            ICommand lastcommand = actionsList[LastInList];                      
            redoList.Add(lastcommand);
@@ -305,10 +309,6 @@ namespace tekenprogramma
         {
 
         }
-
-        //resize
-
-        //move
 
         private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {

@@ -14,7 +14,7 @@ namespace tekenprogramma
         {
         }
 
-        void Actions(string action)
+        public void Actions(string action)
         {
             this.action = action;
         }
