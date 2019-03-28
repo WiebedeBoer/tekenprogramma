@@ -279,23 +279,19 @@ namespace tekenprogramma
             //public Actions FindLast(Predicate<Actions> match);
             //List<Actions>.FindLast(Predicate<Actions>);
             //actionsList.FindLast(actionsList(Receiver){ });
-            ICommand lastCommand = actionsList[actionsList.Count - 1]{ (
-            {
-                    redoList.Add(lastCommand);
-                    actionsList.Remove(lastCommand);
-                    //return lc;
-                })};
+           int LastInList = actionsList.Count - 1;
+           ICommand lastcommand = actionsList[LastInList];                      
+           redoList.Add(lastcommand);
+           actionsList.RemoveAt(LastInList);                            
         }
 
         //redo
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
-            ICommand lastCommand = redoList.FindLast(delegate (ICommand nc)
-            {
-                actionsList.Add(nc);
-                redoList.Remove(nc);
-                return nc;
-            });
+            int LastInList = redoList.Count - 1;
+            ICommand lastcommand = redoList[LastInList];
+            actionsList.Add(lastcommand);
+            redoList.RemoveAt(LastInList);
         }
 
         //save
