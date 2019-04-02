@@ -8,6 +8,7 @@ using Windows.UI.Input;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace tekenprogramma
 {
@@ -221,8 +222,8 @@ namespace tekenprogramma
                 {
                     foreach (var c in paintSurface.Children.OfType<Rectangle>())
                     {
-                        c.Shape = Rectangle;
-                        line = c.Shape;
+                        //c = "rectangle";
+                        line = "rectangle";
                         list.Add(line);
                     }
                 }
