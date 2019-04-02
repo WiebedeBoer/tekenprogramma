@@ -6,92 +6,15 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Input;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace tekenprogramma
 {
 
-
-    public class MakeRectangle : ICommand
-    {
-        private double cpx;
-        private double cpy;
-        private double top;
-        private double left;
-
-        public double ReturnSmallest(double first, double last)
-        {
-            if (first < last)
-            {
-                return first;
-            }
-            else
-            {
-                return last;
-            }
-        }
-
-        void ICommand.Execute()
-        {
-            //throw new NotImplementedException();
-            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
-            newRectangle.Height = Math.Abs(cpy - top); //set height
-            newRectangle.Width = Math.Abs(cpx - left); //set width
-            SolidColorBrush brush = new SolidColorBrush(); //brush
-            brush.Color = Windows.UI.Colors.Blue; //standard brush color is blue
-            newRectangle.Fill = brush; //fill color
-            newRectangle.Name = "Rectangle"; //attach name
-            Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
-            Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
-            //newRectangle.PointerPressed += Drawing_pressed;
-            //paintSurface.Children.Add(newRectangle); //add shape to canvas    
-        }
-    }
-
-    public class MakeEllipse : ICommand
-    {
-        private double cpx;
-        private double cpy;
-        private double top;
-        private double left;
-
-        public double ReturnSmallest(double first, double last)
-        {
-            if (first < last)
-            {
-                return first;
-            }
-            else
-            {
-                return last;
-            }
-        }
-
-        public void Execute()
-        {
-
-        }
-
-        void ICommand.Execute()
-        {
-            //throw new NotImplementedException();
-            Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
-            newEllipse.Height = Math.Abs(cpy - top);//set height
-            newEllipse.Width = Math.Abs(cpx - left);//set width
-            SolidColorBrush brush = new SolidColorBrush();//brush
-            brush.Color = Windows.UI.Colors.Blue;//standard brush color is blue
-            newEllipse.Fill = brush;//fill color
-            newEllipse.Name = "Ellipse";//attach name
-            Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
-            Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
-            //newEllipse.PointerPressed += Drawing_pressed;
-            //paintSurface.Children.Add(newEllipse); //add shape to canvas
-        }
-    }
-
-
+    //main
     public sealed partial class MainPage : Page
     {
-
         //mainpage class variables
         Receiver action = new Receiver();
         string type = "Rectangle"; //default shape
@@ -104,8 +27,7 @@ namespace tekenprogramma
         string actionType ="create"; //default action
         private List<ICommand> actionsList = new List<ICommand>();
         private List<ICommand> redoList = new List<ICommand>();
-        //List<Actions> redoList = new List<Actions>();
-
+      
         public MainPage()
         {
             InitializeComponent();
@@ -176,16 +98,12 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
+            Receiver receiver = new Receiver();
             MakeRectangle makerec = new MakeRectangle();
             Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
-            //newRectangle.Height = Math.Abs(cpy - top); //set height
-            //newRectangle.Width = Math.Abs(cpx - left); //set width
-            //SolidColorBrush brush = new SolidColorBrush(); //brush
-            //brush.Color = Windows.UI.Colors.Blue; //standard brush color is blue
-            //newRectangle.Fill = brush; //fill color
-            //newRectangle.Name = "Rectangle"; //attach name
-            //Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
-            //Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position
+            string action = "makerectangle";
+            receiver.Actions(action);
+            makerec.Execute();
             newRectangle.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newRectangle); //add shape to canvas
 
@@ -198,14 +116,6 @@ namespace tekenprogramma
             MakeEllipse makeelip = new MakeEllipse();
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
             string action = "makeelipse";
-            //newEllipse.Height = Math.Abs(cpy - top);//set height
-            //newEllipse.Width = Math.Abs(cpx - left);//set width
-            //SolidColorBrush brush = new SolidColorBrush();//brush
-            //brush.Color = Windows.UI.Colors.Blue;//standard brush color is blue
-            //newEllipse.Fill = brush;//fill color
-            //newEllipse.Name = "Ellipse";//attach name
-            //Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
-            //Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
             receiver.Actions(action);
             makeelip.Execute();
             newEllipse.PointerPressed += Drawing_pressed;
@@ -271,7 +181,7 @@ namespace tekenprogramma
         private void Ornament_Click(object sender, RoutedEventArgs e)
         {
             FrameworkElement button = e.OriginalSource as FrameworkElement;
-            type = button.Name;//fetch button name to put into type
+            type = button.Name; //fetch button name to put into type
         }
 
         //group
@@ -284,30 +194,55 @@ namespace tekenprogramma
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
            int LastInList = actionsList.Count - 1;
-           ICommand lastcommand = actionsList[LastInList];                      
-           redoList.Add(lastcommand);
-           actionsList.RemoveAt(LastInList);                            
+           ICommand lastcommand = actionsList[LastInList]; //find last command                      
+           redoList.Add(lastcommand); //add to redo list
+           actionsList.RemoveAt(LastInList); //remove from undo list                           
         }
 
         //redo
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
             int LastInList = redoList.Count - 1;
-            ICommand lastcommand = redoList[LastInList];
-            actionsList.Add(lastcommand);
-            redoList.RemoveAt(LastInList);
+            ICommand lastcommand = redoList[LastInList]; //find last command
+            actionsList.Add(lastcommand); //add to undo list
+            redoList.RemoveAt(LastInList); //remove from redo list
         }
 
         //save
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            //paintSurface.Children.GetType;
         }
 
         //load
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-
+            string[] lines;
+            var list = new List<string>();
+            var fileStream = new FileStream("file.txt", FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    list.Add(line);
+                    //if rectangle
+                    if (type == "Rectangle")
+                    {
+                        backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
+                        backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
+                        paintSurface.Children.Add(backuprectangle); //add to canvas
+                    }
+                    //else if ellipse
+                    else if (type == "Ellipse")
+                    {
+                        backupellipse.Height = Convert.ToDouble(Height.Text); //set width
+                        backupellipse.Width = Convert.ToDouble(Width.Text); //set height
+                        paintSurface.Children.Add(backupellipse); //add to canvas
+                    }
+                }
+            }
+            lines = list.ToArray();
         }
 
         private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)

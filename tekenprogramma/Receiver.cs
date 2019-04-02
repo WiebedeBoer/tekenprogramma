@@ -20,28 +20,4 @@ namespace tekenprogramma
         }
     }
 
-    /*
-    public class ConcreteCommand : ICommand
-    {
-        public ConcreteCommand()
-        {
-        }
-
-        void ICommand.Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        void ICommand.Undo()
-        {
-            throw new NotImplementedException();
-        }
-    }
-    */
-
-    interface ICommand
-    {
-        void Execute();
-        //void Undo();
-    }
 }
