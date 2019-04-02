@@ -16,7 +16,7 @@ namespace tekenprogramma
     public sealed partial class MainPage : Page
     {
         //mainpage class variables
-        Receiver action = new Receiver();
+        //Receiver action = new Receiver();
         string type = "Rectangle"; //default shape
         double cpx;
         double cpy;
@@ -98,24 +98,24 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
-            Receiver receiver = new Receiver();
-            MakeRectangle makerec = new MakeRectangle();
-            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
             string action = "makerectangle";
+            Receiver receiver = new Receiver(action);
+            MakeRectangle makerec = new MakeRectangle();
+            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape            
             receiver.Actions(action);
             makerec.Execute();
             newRectangle.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newRectangle); //add shape to canvas
-
         }
 
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
-            Receiver receiver = new Receiver();
+            string action = "makeelipse";
+            Receiver receiver = new Receiver(action);
             MakeEllipse makeelip = new MakeEllipse();
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
-            string action = "makeelipse";
+            
             receiver.Actions(action);
             makeelip.Execute();
             newEllipse.PointerPressed += Drawing_pressed;
@@ -211,7 +211,23 @@ namespace tekenprogramma
         //save
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            //paintSurface.Children.GetType;
+            string[] lines;
+            var list = new List<string>();
+            var fileStream = new FileStream("file.txt", FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    foreach (var c in paintSurface.Children.OfType<Rectangle>())
+                    {
+                        c.Shape = Rectangle;
+                        line = c.Shape;
+                        list.Add(line);
+                    }
+                }
+            }
+            lines = list.ToArray();
         }
 
         //load
@@ -227,14 +243,14 @@ namespace tekenprogramma
                 {
                     list.Add(line);
                     //if rectangle
-                    if (type == "Rectangle")
+                    if (line.Contains("rectangle"))
                     {
                         backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
                         backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
                         paintSurface.Children.Add(backuprectangle); //add to canvas
                     }
                     //else if ellipse
-                    else if (type == "Ellipse")
+                    else if (line.Contains("ellipse"))
                     {
                         backupellipse.Height = Convert.ToDouble(Height.Text); //set width
                         backupellipse.Width = Convert.ToDouble(Width.Text); //set height
