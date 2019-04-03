@@ -259,6 +259,8 @@ namespace tekenprogramma
                     //if rectangle
                     if (line.Contains("rectangle"))
                     {
+                        //backuprectangle.Top = Convert.ToDouble(Top.Text); //set width
+                        //backuprectangle.Left = Convert.ToDouble(Left.Text); //set height
                         backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
                         backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
                         paintSurface.Children.Add(backuprectangle); //add to canvas
@@ -266,6 +268,8 @@ namespace tekenprogramma
                     //else if ellipse
                     else if (line.Contains("ellipse"))
                     {
+                        //backupellipse.Top = Convert.ToDouble(Top.Text); //set width
+                        //backupellipse.Left = Convert.ToDouble(Left.Text); //set height
                         backupellipse.Height = Convert.ToDouble(Height.Text); //set width
                         backupellipse.Width = Convert.ToDouble(Width.Text); //set height
                         paintSurface.Children.Add(backupellipse); //add to canvas
