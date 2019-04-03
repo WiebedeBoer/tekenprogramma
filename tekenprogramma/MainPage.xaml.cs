@@ -261,6 +261,8 @@ namespace tekenprogramma
                     {
                         //backuprectangle.Top = Convert.ToDouble(Top.Text); //set width
                         //backuprectangle.Left = Convert.ToDouble(Left.Text); //set height
+                        Canvas.SetLeft(backuprectangle, cpx); //left
+                        Canvas.SetTop(backuprectangle, cpy); //top
                         backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
                         backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
                         paintSurface.Children.Add(backuprectangle); //add to canvas
@@ -270,6 +272,8 @@ namespace tekenprogramma
                     {
                         //backupellipse.Top = Convert.ToDouble(Top.Text); //set width
                         //backupellipse.Left = Convert.ToDouble(Left.Text); //set height
+                        Canvas.SetLeft(backupellipse, cpx); //left
+                        Canvas.SetTop(backupellipse, cpy); //top
                         backupellipse.Height = Convert.ToDouble(Height.Text); //set width
                         backupellipse.Width = Convert.ToDouble(Width.Text); //set height
                         paintSurface.Children.Add(backupellipse); //add to canvas
