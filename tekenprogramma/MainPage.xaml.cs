@@ -222,14 +222,21 @@ namespace tekenprogramma
                 {
                     foreach (var c in paintSurface.Children.OfType<Rectangle>())
                     {
-                        //c = "rectangle";
                         double top = Canvas.GetTop(c as FrameworkElement);
                         double left = Canvas.GetLeft(c as FrameworkElement);
                         double width = (c as FrameworkElement).Width;
                         double height = (c as FrameworkElement).Height;
-                        //int top = Convert.ToInt32((e.OriginalSource as FrameworkElement).Top);
-                        //selected.Add(lptag);
                         line = "rectangle" + top +" "+ left + " " + width + " " + height;
+                        list.Add(line);
+                    }
+
+                    foreach (var c in paintSurface.Children.OfType<Ellipse>())
+                    {
+                        double top = Canvas.GetTop(c as FrameworkElement);
+                        double left = Canvas.GetLeft(c as FrameworkElement);
+                        double width = (c as FrameworkElement).Width;
+                        double height = (c as FrameworkElement).Height;
+                        line = "ellipse" + top + " " + left + " " + width + " " + height;
                         list.Add(line);
                     }
                 }
