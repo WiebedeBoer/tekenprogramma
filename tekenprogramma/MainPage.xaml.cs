@@ -99,12 +99,13 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
-            string action = "makerectangle";
-            Receiver receiver = new Receiver(action);
-            MakeRectangle makerec = new MakeRectangle();
-            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape            
-            receiver.Actions(action);
-            makerec.Execute();
+            //string action = "makerectangle";
+            Commands maker = new Commands();
+            MakeRectangle makerec = new MakeRectangle(maker);
+            Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
+            Receiver receiver = new Receiver();          
+            receiver.takeOrder(makerec);
+            //makerec.Execute();
             newRectangle.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newRectangle); //add shape to canvas
         }
@@ -112,13 +113,13 @@ namespace tekenprogramma
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
-            string action = "makeelipse";
-            Receiver receiver = new Receiver(action);
-            MakeEllipse makeelip = new MakeEllipse();
+            //string action = "makeelipse";
+            Commands maker = new Commands();
+            MakeEllipse makeelip = new MakeEllipse(maker);
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
-            
-            receiver.Actions(action);
-            makeelip.Execute();
+            Receiver receiver = new Receiver();
+            receiver.takeOrder(makeelip);
+            //makeelip.Execute();
             newEllipse.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newEllipse); //add shape to canvas            
         }

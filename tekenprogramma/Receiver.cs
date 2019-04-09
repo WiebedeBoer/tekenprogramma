@@ -8,23 +8,42 @@ namespace tekenprogramma
 {
     public class Receiver
     {
-        private string action;
 
-        public Receiver(string action)
+        private List<ICommand> action = new List<ICommand>();
+
+        public void takeOrder(ICommand order)
         {
-            this.action = action;
+            action.Add(order);
         }
 
-        public void Actions(string action)
+        public void placeOrders()
         {
-            this.action = action;
-            if (action == "create rectangle")
+
+            foreach (ICommand order in action)
             {
-                //MakeRectangle.Execute();
+                order.Execute();
             }
-            else if(action =="create elipse"){
-                //MakeEllipse.Execute();
-            }            
+            action.Clear();
         }
+
+
+        //private string action;
+
+        //public Receiver(string action)
+        //{
+        //    this.action = action;
+        //}
+
+        //public void Actions(string action)
+        //{
+        //this.action = action;
+        //if (action == "create rectangle")
+        //{
+        //MakeRectangle.Execute();
+        //}
+        //else if(action =="create elipse"){
+        //MakeEllipse.Execute();
+        //}            
+        //}
     }
 }

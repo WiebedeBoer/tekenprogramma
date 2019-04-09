@@ -15,8 +15,7 @@ namespace tekenprogramma
         void Execute();
     }
 
-    //make rectangle
-    public class MakeRectangle : ICommand
+    public class Commands
     {
         private double cpx;
         private double cpy;
@@ -35,7 +34,7 @@ namespace tekenprogramma
             }
         }
 
-        public void Execute()
+        public void MakeRectangle()
         {
             Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
             newRectangle.Height = Math.Abs(cpy - top); //set height
@@ -47,29 +46,8 @@ namespace tekenprogramma
             Canvas.SetLeft(newRectangle, ReturnSmallest(left, cpx)); //set left position
             Canvas.SetTop(newRectangle, ReturnSmallest(top, cpy)); //set top position 
         }
-    }
 
-    //make ellipse
-    public class MakeEllipse : ICommand
-    {
-        private double cpx;
-        private double cpy;
-        private double top;
-        private double left;
-
-        public double ReturnSmallest(double first, double last)
-        {
-            if (first < last)
-            {
-                return first;
-            }
-            else
-            {
-                return last;
-            }
-        }
-
-        public void Execute()
+        public void MakeEllipse()
         {
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
             newEllipse.Height = Math.Abs(cpy - top);//set height
@@ -80,6 +58,38 @@ namespace tekenprogramma
             newEllipse.Name = "Ellipse";//attach name
             Canvas.SetLeft(newEllipse, ReturnSmallest(left, cpx));//set left position
             Canvas.SetTop(newEllipse, ReturnSmallest(top, cpy));//set top position
+        }
+    }
+
+    //make rectangle
+    public class MakeRectangle : ICommand
+    {
+        private Commands mycommand;
+
+        public MakeRectangle(Commands mycommand)
+        {
+            this.mycommand = mycommand;
+        }
+
+        public void Execute()
+        {
+            mycommand.MakeRectangle();
+        }
+    }
+
+    //make ellipse
+    public class MakeEllipse : ICommand
+    {
+        private Commands mycommand;
+
+        public MakeEllipse(Commands mycommand)
+        {
+            this.mycommand = mycommand;
+        }
+
+        public void Execute()
+        {
+            mycommand.MakeEllipse();
         }
     }
 }
