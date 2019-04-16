@@ -278,23 +278,33 @@ namespace tekenprogramma
                     //if rectangle
                     if (line.Contains("rectangle"))
                     {
-                        //backuprectangle.Top = Convert.ToDouble(Top.Text); //set width
-                        //backuprectangle.Left = Convert.ToDouble(Left.Text); //set height
+                        string[] words = line.Split(' ');
+                        double top = Convert.ToDouble(words[1]);
+                        double left = Convert.ToDouble(words[2]);
+                        double width = Convert.ToDouble(words[3]);
+                        double height = Convert.ToDouble(words[4]);
+                        backuprectangle.Top = Convert.ToDouble(top); //set width
+                        backuprectangle.Left = Convert.ToDouble(left); //set height
                         Canvas.SetLeft(backuprectangle, cpx); //left
                         Canvas.SetTop(backuprectangle, cpy); //top
-                        backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
-                        backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
+                        backuprectangle.Height = Convert.ToDouble(height); //set width
+                        backuprectangle.Width = Convert.ToDouble(width); //set height
                         paintSurface.Children.Add(backuprectangle); //add to canvas
                     }
                     //else if ellipse
                     else if (line.Contains("ellipse"))
                     {
-                        //backupellipse.Top = Convert.ToDouble(Top.Text); //set width
-                        //backupellipse.Left = Convert.ToDouble(Left.Text); //set height
+                        string[] words = line.Split(' ');
+                        double top = Convert.ToDouble(words[1]);
+                        double left = Convert.ToDouble(words[2]);
+                        double width = Convert.ToDouble(words[3]);
+                        double height = Convert.ToDouble(words[4]);
+                        backupellipse.Top = Convert.ToDouble(top); //set width
+                        backupellipse.Left = Convert.ToDouble(left); //set height
                         Canvas.SetLeft(backupellipse, cpx); //left
                         Canvas.SetTop(backupellipse, cpy); //top
-                        backupellipse.Height = Convert.ToDouble(Height.Text); //set width
-                        backupellipse.Width = Convert.ToDouble(Width.Text); //set height
+                        backupellipse.Height = Convert.ToDouble(height); //set width
+                        backupellipse.Width = Convert.ToDouble(width); //set height
                         paintSurface.Children.Add(backupellipse); //add to canvas
                     }
                 }
