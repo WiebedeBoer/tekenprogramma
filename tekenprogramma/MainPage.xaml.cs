@@ -99,13 +99,11 @@ namespace tekenprogramma
         //make a rectangle
         public void MakeRectangle(double left, double top)
         {
-            //string action = "makerectangle";
             Commands maker = new Commands();
             MakeRectangle makerec = new MakeRectangle(maker);
             Rectangle newRectangle = new Rectangle(); //instance of new rectangle shape
             Receiver receiver = new Receiver();          
-            receiver.takeOrder(makerec);
-            //makerec.Execute();
+            receiver.takeOrder(makerec);           
             newRectangle.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newRectangle); //add shape to canvas
         }
@@ -113,13 +111,11 @@ namespace tekenprogramma
         //make an ellipse
         public void MakeEllipse(double left, double top)
         {
-            //string action = "makeelipse";
             Commands maker = new Commands();
             MakeEllipse makeelip = new MakeEllipse(maker);
             Ellipse newEllipse = new Ellipse(); //instance of new ellipse shape
             Receiver receiver = new Receiver();
-            receiver.takeOrder(makeelip);
-            //makeelip.Execute();
+            receiver.takeOrder(makeelip);           
             newEllipse.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newEllipse); //add shape to canvas            
         }
@@ -137,16 +133,26 @@ namespace tekenprogramma
             if (type == "Rectangle")
             {
                 paintSurface.Children.Remove(backuprectangle);
-                backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
-                backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
+                //backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
+                //backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
+                Commands maker = new Commands();
+                Resize doresize = new Resize(maker);
+                //Rectangle backuprectangle = new Rectangle(); //instance of resized shape
+                Receiver receiver = new Receiver();
+                receiver.takeOrder(doresize);
                 paintSurface.Children.Add(backuprectangle); //add to canvas
             }
             //else if ellipse
             else if (type == "Ellipse")
             {
                 paintSurface.Children.Remove(backupellipse);
-                backupellipse.Height = Convert.ToDouble(Height.Text); //set width
-                backupellipse.Width = Convert.ToDouble(Width.Text); //set height
+                //backupellipse.Height = Convert.ToDouble(Height.Text); //set width
+                //backupellipse.Width = Convert.ToDouble(Width.Text); //set height
+                Commands maker = new Commands();
+                Resize doresize = new Resize(maker);
+                //Ellipse backupellipse = new Ellipse(); //instance of resized shape
+                Receiver receiver = new Receiver();
+                receiver.takeOrder(doresize);
                 paintSurface.Children.Add(backupellipse); //add to canvas
             }
         }
@@ -196,8 +202,14 @@ namespace tekenprogramma
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
            int LastInList = actionsList.Count - 1;
-           ICommand lastcommand = actionsList[LastInList]; //find last command                      
-           redoList.Add(lastcommand); //add to redo list
+           ICommand lastcommand = actionsList[LastInList];
+            
+            Commands maker = new Commands();
+            Undo undid = new Undo(maker);
+            Receiver receiver = new Receiver();
+            receiver.takeOrder(undid);
+
+            redoList.Add(lastcommand); //add to redo list
            actionsList.RemoveAt(LastInList); //remove from undo list                           
         }
 
@@ -206,6 +218,12 @@ namespace tekenprogramma
         {
             int LastInList = redoList.Count - 1;
             ICommand lastcommand = redoList[LastInList]; //find last command
+
+            Commands maker = new Commands();
+            Redo redid = new Redo(maker);
+            Receiver receiver = new Receiver();
+            receiver.takeOrder(redid);
+
             actionsList.Add(lastcommand); //add to undo list
             redoList.RemoveAt(LastInList); //remove from redo list
         }

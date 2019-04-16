@@ -25,25 +25,26 @@ namespace tekenprogramma
             }
             action.Clear();
         }
-
-
-        //private string action;
-
-        //public Receiver(string action)
-        //{
-        //    this.action = action;
-        //}
-
-        //public void Actions(string action)
-        //{
-        //this.action = action;
-        //if (action == "create rectangle")
-        //{
-        //MakeRectangle.Execute();
-        //}
-        //else if(action =="create elipse"){
-        //MakeEllipse.Execute();
-        //}            
-        //}
     }
+
+    //private string action;
+
+    //public Receiver(string action)
+    //{
+    //    this.action = action;
+    //}
+
+    //public void Actions(string action)
+    //{
+    //this.action = action;
+    //if (action == "create rectangle")
+    //{
+    //MakeRectangle.Execute();
+    //}
+    //else if(action =="create elipse"){
+    //MakeEllipse.Execute();
+    //}            
+    //}
+
+
 }
