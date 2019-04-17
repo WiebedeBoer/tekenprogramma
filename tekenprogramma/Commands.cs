@@ -31,6 +31,8 @@ namespace tekenprogramma
         private List<ICommand> actionsList = new List<ICommand>();
         private List<ICommand> redoList = new List<ICommand>();
 
+        bool moving = false;
+
         //give smallest
         public double ReturnSmallest(double first, double last)
         {
@@ -96,10 +98,10 @@ namespace tekenprogramma
             //if rectangle
             if (type == "Rectangle")
             {
-                double top = Canvas.GetTop(c as FrameworkElement);
-                double left = Canvas.GetLeft(c as FrameworkElement);
-                double width = (c as FrameworkElement).Width;
-                double height = (c as FrameworkElement).Height;
+                //double top = Canvas.GetTop(c as FrameworkElement);
+                //double left = Canvas.GetLeft(c as FrameworkElement);
+                //double width = (c as FrameworkElement).Width;
+                //double height = (c as FrameworkElement).Height;
                 backuprectangle.Height = Convert.ToDouble(Height.Text); //set width
                 backuprectangle.Width = Convert.ToDouble(Width.Text); //set height
                 
@@ -107,10 +109,10 @@ namespace tekenprogramma
             //else if ellipse
             else if (type == "Ellipse")
             {
-                double top = Canvas.GetTop(c as FrameworkElement);
-                double left = Canvas.GetLeft(c as FrameworkElement);
-                double width = (c as FrameworkElement).Width;
-                double height = (c as FrameworkElement).Height;
+                //double top = Canvas.GetTop(c as FrameworkElement);
+                //double left = Canvas.GetLeft(c as FrameworkElement);
+                //double width = (c as FrameworkElement).Width;
+                //double height = (c as FrameworkElement).Height;
                 backupellipse.Height = Convert.ToDouble(Height.Text); //set width
                 backupellipse.Width = Convert.ToDouble(Width.Text); //set height
                 
@@ -120,21 +122,23 @@ namespace tekenprogramma
         //moving
         public void Moving()
         {
-            cpx = e.GetCurrentPoint(paintSurface).Position.X; //x coordinate canvas
-            cpy = e.GetCurrentPoint(paintSurface).Position.Y; //y coordinate canvas
+            //cpx = e.GetCurrentPoint(paintSurface).Position.X; //x coordinate canvas
+            //cpy = e.GetCurrentPoint(paintSurface).Position.Y; //y coordinate canvas
+            //double top = Canvas.GetTop(c as FrameworkElement);
+            //double left = Canvas.GetLeft(c as FrameworkElement);
             if (type == "Rectangle")
             {
-                Canvas.SetLeft(backuprectangle, cpx); //left
-                Canvas.SetTop(backuprectangle, cpy); //top
-                paintSurface.Children.Remove(backuprectangle); //remove the backup
-                paintSurface.Children.Add(backuprectangle); //add the new backup shape
+                Canvas.SetLeft(backuprectangle, left); //left
+                Canvas.SetTop(backuprectangle, top); //top
+                //paintSurface.Children.Remove(backuprectangle); //remove the backup
+                //paintSurface.Children.Add(backuprectangle); //add the new backup shape
             }
             else if (type == "Ellipse")
             {
-                Canvas.SetLeft(backupellipse, cpx);
-                Canvas.SetTop(backupellipse, cpy);
-                paintSurface.Children.Remove(backupellipse); //remove the backup
-                paintSurface.Children.Add(backupellipse); //add the new backup shape
+                Canvas.SetLeft(backupellipse, left);
+                Canvas.SetTop(backupellipse, top);
+                //paintSurface.Children.Remove(backupellipse); //remove the backup
+                //paintSurface.Children.Add(backupellipse); //add the new backup shape
             }
             moving = !moving;
         }

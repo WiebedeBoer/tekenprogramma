@@ -58,17 +58,27 @@ namespace tekenprogramma
                 cpy = e.GetCurrentPoint(paintSurface).Position.Y; //y coordinate canvas
                 if (type == "Rectangle")
                 {
-                    Canvas.SetLeft(backuprectangle, cpx); //left
-                    Canvas.SetTop(backuprectangle, cpy); //top
+                    //Canvas.SetLeft(backuprectangle, cpx); //left
+                    //Canvas.SetTop(backuprectangle, cpy); //top
+                    Commands maker = new Commands();
+                    Moving moving = new Moving(maker);
+                    Receiver receiver = new Receiver();
+                    receiver.takeOrder(moving);
                     paintSurface.Children.Remove(backuprectangle); //remove the backup
                     paintSurface.Children.Add(backuprectangle); //add the new backup shape
+                    actionsList.Add(moving); //add command to list
                 }
                 else if(type == "Ellipse")
                 {
-                    Canvas.SetLeft(backupellipse, cpx);
-                    Canvas.SetTop(backupellipse, cpy);
+                    //Canvas.SetLeft(backupellipse, cpx);
+                    //Canvas.SetTop(backupellipse, cpy);
+                    Commands maker = new Commands();
+                    Moving moving = new Moving(maker);
+                    Receiver receiver = new Receiver();
+                    receiver.takeOrder(moving);
                     paintSurface.Children.Remove(backupellipse); //remove the backup
                     paintSurface.Children.Add(backupellipse); //add the new backup shape
+                    actionsList.Add(moving); //add command to list
                 }
                 moving = !moving;
             }
@@ -105,6 +115,7 @@ namespace tekenprogramma
             receiver.takeOrder(makerec);           
             newRectangle.PointerPressed += Drawing_pressed;
             paintSurface.Children.Add(newRectangle); //add shape to canvas
+            actionsList.Add(makerec); //add command to list
         }
 
         //make an ellipse
@@ -116,7 +127,8 @@ namespace tekenprogramma
             Receiver receiver = new Receiver();
             receiver.takeOrder(makeelip);           
             newEllipse.PointerPressed += Drawing_pressed;
-            paintSurface.Children.Add(newEllipse); //add shape to canvas            
+            paintSurface.Children.Add(newEllipse); //add shape to canvas    
+            actionsList.Add(makeelip); //add command to list
         }
 
         //moving shape
@@ -140,6 +152,7 @@ namespace tekenprogramma
                 Receiver receiver = new Receiver();
                 receiver.takeOrder(doresize);
                 paintSurface.Children.Add(backuprectangle); //add to canvas
+                actionsList.Add(doresize); //add command to list
             }
             //else if ellipse
             else if (type == "Ellipse")
@@ -153,6 +166,7 @@ namespace tekenprogramma
                 Receiver receiver = new Receiver();
                 receiver.takeOrder(doresize);
                 paintSurface.Children.Add(backupellipse); //add to canvas
+                actionsList.Add(doresize); //add command to list
             }
         }
 
@@ -209,7 +223,7 @@ namespace tekenprogramma
             receiver.takeOrder(undid);
 
             redoList.Add(lastcommand); //add to redo list
-           actionsList.RemoveAt(LastInList); //remove from undo list                           
+            actionsList.RemoveAt(LastInList); //remove from undo list                           
         }
 
         //redo
