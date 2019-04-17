@@ -17,7 +17,6 @@ namespace tekenprogramma
     public sealed partial class MainPage : Page
     {
         //mainpage class variables
-        //Receiver action = new Receiver();
         string type = "Rectangle"; //default shape
         double cpx;
         double cpy;
@@ -25,7 +24,7 @@ namespace tekenprogramma
         bool moving = false;
         Rectangle backuprectangle; //rectangle shape
         Ellipse backupellipse; //ellipse shape
-        string actionType ="create"; //default action
+        //string actionType ="create"; //default action
         private List<ICommand> actionsList = new List<ICommand>();
         private List<ICommand> redoList = new List<ICommand>();
       
@@ -283,10 +282,10 @@ namespace tekenprogramma
                         double left = Convert.ToDouble(words[2]);
                         double width = Convert.ToDouble(words[3]);
                         double height = Convert.ToDouble(words[4]);
-                        backuprectangle.Top = Convert.ToDouble(top); //set width
-                        backuprectangle.Left = Convert.ToDouble(left); //set height
-                        Canvas.SetLeft(backuprectangle, cpx); //left
-                        Canvas.SetTop(backuprectangle, cpy); //top
+                        //backuprectangle.Top = Convert.ToDouble(top); //set top
+                        //backuprectangle.Left = Convert.ToDouble(left); //set left
+                        Canvas.SetLeft(backuprectangle, left); //left
+                        Canvas.SetTop(backuprectangle, top); //top
                         backuprectangle.Height = Convert.ToDouble(height); //set width
                         backuprectangle.Width = Convert.ToDouble(width); //set height
                         paintSurface.Children.Add(backuprectangle); //add to canvas
@@ -299,10 +298,10 @@ namespace tekenprogramma
                         double left = Convert.ToDouble(words[2]);
                         double width = Convert.ToDouble(words[3]);
                         double height = Convert.ToDouble(words[4]);
-                        backupellipse.Top = Convert.ToDouble(top); //set width
-                        backupellipse.Left = Convert.ToDouble(left); //set height
-                        Canvas.SetLeft(backupellipse, cpx); //left
-                        Canvas.SetTop(backupellipse, cpy); //top
+                        //backupellipse.Top = Convert.ToDouble(top); //set top
+                        //backupellipse.Left = Convert.ToDouble(left); //set left
+                        Canvas.SetLeft(backupellipse, left); //left
+                        Canvas.SetTop(backupellipse, top); //top
                         backupellipse.Height = Convert.ToDouble(height); //set width
                         backupellipse.Width = Convert.ToDouble(width); //set height
                         paintSurface.Children.Add(backupellipse); //add to canvas
@@ -314,7 +313,7 @@ namespace tekenprogramma
 
         private void Front_canvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            //front_canvas.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(0,0,0,0));
+            
         }
 
         private void Width_TextChanged(object sender, TextChangedEventArgs e)

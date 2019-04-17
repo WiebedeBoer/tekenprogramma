@@ -28,6 +28,9 @@ namespace tekenprogramma
 
         string type = "Rectangle"; //default shape
 
+        private List<ICommand> actionsList = new List<ICommand>();
+        private List<ICommand> redoList = new List<ICommand>();
+
         //give smallest
         public double ReturnSmallest(double first, double last)
         {
